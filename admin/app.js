@@ -5,6 +5,8 @@
 const LOGO = "/wp-content/uploads/2025/12/elevar_1-05-scaled-e1764947847136-1075x500.png";
 const BUSINESS_FILE = "content/business.json";
 const DRAFT_KEY = "elevar-dashboard-draft";
+const COLL = { projects: "content/projects.json", news: "content/news.json", services: "content/services.json" };
+import * as C from "/admin/collections.js";
 
 // ---------------------------------------------------------------- helpers
 const h = (tag, attrs = {}, ...kids) => {
@@ -139,7 +141,7 @@ const dirtyFiles = () => Object.keys(S.docs).filter(isDirty);
 
 function countChanges() {
   let n = 0;
-  const walk = (a, b) => { for (const k of new Set([...Object.keys(a || {}), ...Object.keys(b || {})])) { const x = a?.[k], y = b?.[k]; if (x && typeof x === "object" && !Array.isArray(x)) walk(x, y); else if (JSON.stringify(x) !== JSON.stringify(y)) n++; } };
+  const walk = (a, b) => { for (const k of new Set([...Object.keys(a || {}), ...Object.keys(b || {})])) { const x = a?.[k], y = b?.[k]; if (x && typeof x === "object" && y && typeof y === "object") walk(x, y); else if (JSON.stringify(x) !== JSON.stringify(y)) n++; } };
   for (const f of dirtyFiles()) walk(S.docs[f].data, JSON.parse(S.docs[f].original));
   return n;
 }
@@ -187,7 +189,12 @@ const FRAME_CSS = `
 #elevar-badge{position:fixed;z-index:2147483647;pointer-events:none;background:#17181c;color:#fff;font:600 12px/1 Inter,system-ui,sans-serif;padding:6px 9px;border-radius:6px;display:none;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.2)}
 `;
 
-function wireFrame(iframe) {
+// Element the user clicked: the tagged element, or (animated headings split
+// into one span per word) the tagged word in the same heading.
+const pickTarget = (t) => t.closest?.("[data-cms]") || t.closest?.("h1,h2,h3,h4,h5,h6")?.querySelector("[data-cms]");
+const LIST_VIEW = { projects: "projects", news: "news", "services-list": "services", "services-accordion": "services" };
+
+function wireFrame(iframe, onPick = (key) => select(key, false), onList = null) {
   const doc = iframe.contentDocument;
   S.frameDoc = doc;
   doc.head.append(Object.assign(doc.createElement("style"), { textContent: FRAME_CSS }));
@@ -195,21 +202,26 @@ function wireFrame(iframe) {
   doc.body.append(badge);
   const label = (el) => { const k = kindOf(el.dataset.cms); return k === "i" ? "Replace photo" : k === "n" ? "Edit number" : /^H\d$/.test(el.tagName) ? "Edit heading" : "Edit text"; };
 
+  const listNames = { projects: "Manage projects", news: "Manage news", "services-list": "Manage services", "services-accordion": "Manage services" };
   doc.addEventListener("mouseover", (e) => {
-    const el = e.target.closest?.("[data-cms]");
-    if (!el) { badge.style.display = "none"; return; }
-    const r = el.getBoundingClientRect();
-    badge.textContent = "✎ " + label(el) + (el.dataset.cms.startsWith("g") ? " · all pages" : "");
+    const list = e.target.closest?.("[data-collection]");
+    const el = list ? null : pickTarget(e.target);
+    const box = list || el;
+    if (!box) { badge.style.display = "none"; return; }
+    const r = box.getBoundingClientRect();
+    badge.textContent = list ? "☰ " + listNames[list.dataset.collection] : "✎ " + label(el) + (el.dataset.cms.startsWith("g") ? " · all pages" : "");
     badge.style.display = "block";
     badge.style.left = Math.max(6, r.left) + "px";
     badge.style.top = Math.max(6, r.top - 30) + "px";
   });
   doc.addEventListener("click", (e) => {
-    const el = e.target.closest?.("[data-cms]");
     if (e.target.closest?.("a, button, form, input")) e.preventDefault();
+    const list = e.target.closest?.("[data-collection]");
+    if (list) { e.preventDefault(); e.stopPropagation(); if (onList) onList(e.target); else go(LIST_VIEW[list.dataset.collection]); return; }
+    const el = pickTarget(e.target);
     if (!el) return;
     e.preventDefault(); e.stopPropagation();
-    select(el.dataset.cms, false);
+    onPick(el.dataset.cms, el);
   }, true);
   doc.addEventListener("submit", (e) => e.preventDefault(), true);
 }
@@ -280,20 +292,26 @@ function renderShell() {
 
 function renderNav() {
   const btn = (label, ic, active, onclick, file) => h("button", { class: active ? "active" : "", onclick, "data-file": file || null }, icon(ic), h("span", { class: "label" }, label), file && isDirty(file) ? h("span", { class: "dot", title: "Unpublished changes" }) : null);
-  const main = S.pages.filter((p) => !p.url.startsWith("/portfolio/") && !p.url.startsWith("/elevar-"));
-  const projects = S.pages.filter((p) => p.url.startsWith("/portfolio/"));
-  const posts = S.pages.filter((p) => p.url.startsWith("/elevar-"));
+  const main = S.pages.filter((p) => !isItemPage(p));
   const open = (p) => () => openPage(p.slug);
   const isP = (p) => S.view === "page" && S.page?.slug === p.slug;
-  put(els.nav, 
+  const itemBtn = (kind, it) => {
+    const active = (S.view === "page" && S.page?.url === itemUrl(kind, it)) || ((S.view === "project" || S.view === "post") && S.item === it.slug);
+    return btn(it.title || "Untitled", kind === "projects" ? "layers" : "rich", active, () => openItem(kind, it.slug));
+  };
+  put(els.nav,
     h("h6", {}, "Start"),
     btn("Overview", "home", S.view === "home", () => go("home")),
     h("h6", {}, "Pages"),
     main.map((p) => btn(p.label, "page", isP(p), open(p), p.file)),
     h("h6", {}, "Projects"),
-    projects.map((p) => btn(p.label, "layers", isP(p), open(p), p.file)),
+    btn("All projects", "plus", S.view === "projects", () => go("projects"), COLL.projects),
+    items("projects").map((it) => itemBtn("projects", it)),
     h("h6", {}, "News"),
-    posts.map((p) => btn(p.label, "rich", isP(p), open(p), p.file)),
+    btn("All articles", "plus", S.view === "news", () => go("news"), COLL.news),
+    items("news").map((it) => itemBtn("news", it)),
+    h("h6", {}, "Services"),
+    btn("Services", "briefcase", S.view === "services", () => go("services"), COLL.services),
     h("h6", {}, "Settings"),
     btn("Business details", "briefcase", S.view === "business", () => go("business"), BUSINESS_FILE),
     btn("Photo library", "photos", S.view === "media", () => go("media")),
@@ -310,15 +328,17 @@ function renderNavDots() {
 function renderTop() {
   if (!els.top) return;
   const n = countChanges();
-  const title = S.view === "page" ? S.page.label : S.view === "business" ? "Business details" : S.view === "media" ? "Photo library" : "Overview";
+  const cur = (S.view === "project" || S.view === "post") ? getItem(S.view === "project" ? "projects" : "news", S.item) : null;
+  const title = S.view === "page" ? S.page.label : cur ? (cur.title || "Untitled") : { business: "Business details", media: "Photo library", projects: "Projects", news: "News", services: "Services" }[S.view] || "Overview";
+  const liveUrl = S.view === "page" ? S.page.url : cur ? itemUrl(S.view === "project" ? "projects" : "news", cur) : null;
   const status = S.publishing ? h("div", { class: "status" }, h("span", { class: "pulse" }), "Saving…")
     : S.waitingFor ? h("div", { class: "status" }, h("span", { class: "pulse" }), "Publishing, usually about a minute…")
     : n ? h("div", { class: "status" }, `${n} unpublished change${n > 1 ? "s" : ""}`)
     : h("div", { class: "status live" }, icon("check", 16), "All changes are live");
-  const devices = S.view === "page" ? h("div", { class: "devices" }, ["desktop", "tablet", "mobile"].map((d) => h("button", { class: S.device === d ? "active" : "", title: d, onclick: () => { S.device = d; els.frameWrap.className = "frame-wrap " + d; renderTop(); } }, icon(d, 17)))) : null;
+  const devices = ["page", "project", "post", "services"].includes(S.view) ? h("div", { class: "devices" }, ["desktop", "tablet", "mobile"].map((d) => h("button", { class: S.device === d ? "active" : "", title: d, onclick: () => { S.device = d; els.frameWrap.className = "frame-wrap " + d; renderTop(); } }, icon(d, 17)))) : null;
   put(els.top, 
     h("h2", {}, title),
-    S.view === "page" ? h("a", { class: "btn ghost small", href: S.page.url, target: "_blank", rel: "noopener", title: "Open the live page" }, icon("external", 16)) : null,
+    liveUrl ? h("a", { class: "btn ghost small", href: liveUrl, target: "_blank", rel: "noopener", title: "Open the live page (after publishing)" }, icon("external", 16)) : null,
     h("div", { class: "spacer" }),
     devices,
     status,
@@ -332,6 +352,9 @@ function go(view) {
   if (view === "home") renderHome();
   if (view === "business") renderBusiness();
   if (view === "media") renderMediaPage();
+  if (view === "projects") renderItemsManager("projects");
+  if (view === "news") renderItemsManager("news");
+  if (view === "services") renderServicesManager();
 }
 
 // ---------------------------------------------------------------- overview
@@ -342,7 +365,15 @@ function renderHome() {
     for (const sec of p.sections) for (const f of sec.fields) if (f.kind === "i") { const v = d[sec.name]?.[f.key]; if (v && !/logo/i.test(v)) return displaySrc(v); }
     return null;
   };
-  const grid = h("div", { class: "page-cards" }, S.pages.map((p) => {
+  const coverOf = (kind) => items(kind).find((x) => x.cover)?.cover;
+  const managers = h("div", { class: "page-cards", style: "margin-bottom:30px" },
+    [["projects", "Projects", "layers", `${items("projects").length} projects · add, reorder, remove`],
+     ["news", "News", "rich", `${items("news").length} article${items("news").length === 1 ? "" : "s"} · write a new one`],
+     ["services", "Services", "briefcase", `${items("services").length} services · add, edit, reorder`]].map(([v, label, ic, sub]) =>
+      h("button", { class: "page-card", onclick: () => go(v) },
+        h("div", { class: "shot", style: v !== "services" && coverOf(v) ? `background-image:url("${displaySrc(coverOf(v))}")` : "display:grid;place-items:center;color:#a8763e" }, v === "services" || !coverOf(v) ? icon(ic, 40) : null),
+        h("div", { class: "meta" }, h("b", {}, label), h("span", {}, sub)))));
+  const grid = h("div", { class: "page-cards" }, S.pages.filter((p) => !isItemPage(p)).map((p) => {
     const img = firstImg(p);
     return h("button", { class: "page-card", onclick: () => openPage(p.slug) },
       h("div", { class: "shot", style: img ? `background-image:url("${img}")` : "" }),
@@ -355,6 +386,9 @@ function renderHome() {
       h("div", { class: "step" }, h("b", {}, h("i", {}, "1"), "Open a page"), h("span", {}, "Pick one below or from the menu.")),
       h("div", { class: "step" }, h("b", {}, h("i", {}, "2"), "Click to edit"), h("span", {}, "Click any text, photo or number on the page.")),
       h("div", { class: "step" }, h("b", {}, h("i", {}, "3"), "Publish"), h("span", {}, "Your changes go live in about a minute."))),
+    h("div", { class: "section-title" }, "Projects, news & services"),
+    managers,
+    h("div", { class: "section-title" }, "Pages"),
     grid));
   // load page data once in the background, then redraw with photo thumbnails
   if (!S.pages.every((p) => S.docs[p.file])) {
@@ -383,6 +417,7 @@ async function openPage(slug) {
     if (S.page !== page) return;
     wireFrame(iframe);
     await applyContentToFrame();
+    refreshFrameLists(S.frameDoc);
     loading.remove();
     if (S.selected) highlight(S.selected, true);
   });
@@ -456,6 +491,7 @@ function pagePanel() {
       serp,
       h("label", { class: "field" }, h("span", {}, "Google title", tCount), title),
       h("label", { class: "field" }, h("span", {}, "Google description", dCount), desc),
+      listingCardSection(),
       h("div", { class: "section-title" }, icon("layers", 15), "Everything on this page"),
       groups, shared),
   ];
@@ -663,11 +699,342 @@ async function renderBusiness() {
       h("div", { class: "two" }, input("street", "Area / street"), input("city", "City")),
       h("div", { class: "two" }, input("region", "District"), input("country", "Country code", { hint: "Two letters, e.g. RW" })),
       input("area_served", "Area served", { ph: "Rwanda" })),
-    h("div", { class: "card" }, h("h3", {}, "Services"), h("p", {}, "What you offer. Used by Google to understand your business."),
-      list("services", "Services", "e.g. Architecture Design & Space Planning")),
+    h("div", { class: "card" }, h("h3", {}, "Services"), h("p", {}, "Google gets your services list automatically from the Services section."),
+      h("button", { class: "btn small", style: "margin-bottom:20px", onclick: () => go("services") }, icon("briefcase", 15), "Manage services")),
     h("div", { class: "card" }, h("h3", {}, "Social media & images"), h("p", {}, "Links to your profiles help Google connect them to your website."),
       list("social_links", "Profile links", "https://www.linkedin.com/company/…", "Full addresses of your LinkedIn, Instagram, Facebook or other pages."),
       h("div", { class: "two" }, photo("logo", "Logo"), photo("image", "Main photo"))))));
+}
+
+// ---------------------------------------------------------------- projects, news & services
+const items = (kind) => { const d = S.docs[COLL[kind]]?.data; if (!d) return []; return (d.items ||= []); };
+const getItem = (kind, slug) => items(kind).find((x) => x.slug === slug);
+const itemUrl = (kind, it) => (kind === "projects" ? C.projectPath(it) : C.postPath(it));
+const isItemPage = (p) => p.url.startsWith("/portfolio/") || p.url === C.POST_TEMPLATE.path;
+const longDate = (d) => { const x = new Date(d); return isNaN(x) ? "" : x.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }); };
+const isUnpublished = (kind, it) => { const o = S.docs[COLL[kind]]?.original; return o && !JSON.parse(o).items?.some((x) => x.slug === it.slug); };
+const getPath = (obj, path) => path.split(".").reduce((o, k) => (o == null ? o : o[k]), obj);
+function setPath(obj, path, v) {
+  const ks = path.split(".");
+  let o = obj;
+  ks.slice(0, -1).forEach((k, i) => { if (o[k] == null) o[k] = /^\d+$/.test(ks[i + 1]) ? [] : {}; o = o[k]; });
+  o[ks[ks.length - 1]] = v;
+}
+function parseFrag(html) { const t = document.createElement("template"); t.innerHTML = html.trim(); return t.content.firstElementChild; }
+
+// Photos uploaded but not yet published only exist in this browser: show them from memory.
+function fixPendingImages(doc) {
+  for (const img of doc.querySelectorAll("img")) { const u = S.uploads.get(img.getAttribute("src")); if (u) img.setAttribute("src", u.blobUrl); }
+  for (const el of doc.querySelectorAll("style#elevar-hero, .post-thumbnail")) {
+    for (const [url, u] of S.uploads) {
+      if (el.tagName === "STYLE" && el.textContent.includes(url)) el.textContent = el.textContent.split(url).join(u.blobUrl);
+      const st = el.getAttribute("style") || ""; if (st.includes(url)) el.setAttribute("style", st.split(url).join(u.blobUrl));
+    }
+  }
+}
+
+function refreshFrameLists(doc) {
+  if (!doc?.querySelector("[data-collection]")) return;
+  C.renderProjectCards(doc, items("projects"), parseFrag);
+  C.renderNewsCards(doc, items("news"), parseFrag);
+  C.renderServices(doc, items("services"), parseFrag);
+  fixPendingImages(doc);
+}
+
+function openItem(kind, slug) {
+  const it = getItem(kind, slug);
+  if (!it) return go(kind);
+  if (it.kind === "original") {
+    const page = S.pages.find((p) => p.url === itemUrl(kind, it));
+    if (page) return openPage(page.slug);
+  }
+  return kind === "projects" ? openProjectEditor(slug) : openPostEditor(slug);
+}
+
+const RESERVED = new Set(["admin", "api", "wp-content", "wp-includes", "portfolio", "news", "projects", "services", "about", "contact", "thank-you", "category", "tag", "author", "home", "home-03", "feed", "sitemap.xml"]);
+function uniqueSlug(kind, title) {
+  const base = C.slugify(title);
+  const taken = new Set(items(kind).map((x) => x.slug));
+  if (kind === "news") { for (const r of RESERVED) taken.add(r); for (const p of S.pages) taken.add(p.url.split("/")[1]); }
+  let s = base, n = 2;
+  while (taken.has(s)) s = `${base}-${n++}`;
+  return s;
+}
+
+function askText(title, label, placeholder = "") {
+  return new Promise((resolve) => {
+    const input = h("input", { class: "input", placeholder });
+    const done = (v) => { back.remove(); resolve(v); };
+    const back = h("div", { class: "modal-back", onclick: (e) => { if (e.target === back) done(null); } },
+      h("form", { class: "modal small", onsubmit: (e) => { e.preventDefault(); if (input.value.trim()) done(input.value.trim()); } },
+        h("h3", {}, title),
+        h("label", { class: "field" }, h("span", {}, label), input),
+        h("div", { class: "modal-actions" },
+          h("button", { type: "button", class: "btn ghost", onclick: () => done(null) }, "Cancel"),
+          h("button", { type: "submit", class: "btn accent" }, "Create"))));
+    document.body.append(back);
+    setTimeout(() => input.focus(), 30);
+  });
+}
+
+async function addItem(kind) {
+  const isP = kind === "projects";
+  const title = await askText(isP ? "Add a project" : "Write an article", isP ? "Project name" : "Article title", isP ? "e.g. Nyamata Health Post" : "e.g. Our new office in Kimihurura");
+  if (!title) return;
+  const now = new Date(); const today = new Date(now.getTime() - now.getTimezoneOffset() * 60000).toISOString().slice(0, 10); // local date
+  const blank = { title: "", text: "" };
+  const it = isP
+    ? { kind: "new", slug: uniqueSlug(kind, title), title, excerpt: "", cover: "", date: today, tagline: "", highlights: [{ ...blank }, { ...blank }, { ...blank }], intro_heading: "Facilities.", intro: "", photos: ["", "", "", ""], section2: { heading: "Purpose-Driven Design", text: "" }, section3: { heading: "Supporting Growth Through Architecture", text: "" }, seo: { title: "", description: "" } }
+    : { kind: "new", slug: uniqueSlug(kind, title), title, date: today, cover: "", excerpt: "", body: "<p></p>", seo: { title: "", description: "" } };
+  items(kind).unshift(it);
+  changed(); renderNav();
+  toast(isP ? "Project added. Fill in the details, then Publish." : "Article added. Write it, then Publish.", "ok");
+  openItem(kind, it.slug);
+}
+
+function deleteItem(kind, it) {
+  if (!confirm(`Delete "${it.title || "Untitled"}"? It disappears from the website when you publish.`)) return false;
+  const list = items(kind);
+  list.splice(list.indexOf(it), 1);
+  changed(); renderNav();
+  return true;
+}
+
+function renderItemsManager(kind) {
+  els.main.className = "main full";
+  const isP = kind === "projects";
+  const list = items(kind);
+  const shown = isP ? list : [...list].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  const move = (i, d) => { [list[i], list[i + d]] = [list[i + d], list[i]]; changed(); renderNav(); renderItemsManager(kind); };
+  const row = (it) => {
+    const i = list.indexOf(it);
+    return h("div", { class: "mgr-row" },
+      h("button", { class: "mgr-thumb", style: it.cover ? `background-image:url("${displaySrc(it.cover)}")` : "", onclick: () => openItem(kind, it.slug), title: "Edit" }, it.cover ? null : icon("image", 26)),
+      h("div", { class: "mgr-txt" },
+        h("b", {}, it.title || "Untitled"),
+        h("span", {}, isP ? it.excerpt || "No short description yet" : longDate(it.date)),
+        h("div", { class: "chips" },
+          it.kind === "original" ? h("span", { class: "chip" }, "original page") : h("span", { class: "chip green" }, "new"),
+          isUnpublished(kind, it) ? h("span", { class: "chip blue" }, "not published yet") : null)),
+      h("div", { class: "mgr-actions" },
+        isP ? h("button", { class: "btn small ghost", title: "Move up", disabled: i === 0, onclick: () => move(i, -1) }, "↑") : null,
+        isP ? h("button", { class: "btn small ghost", title: "Move down", disabled: i === list.length - 1, onclick: () => move(i, 1) }, "↓") : null,
+        h("a", { class: "btn small ghost", href: itemUrl(kind, it), target: "_blank", rel: "noopener", title: "View on the site" }, icon("external", 15)),
+        h("button", { class: "btn small ghost danger", title: "Delete", onclick: () => { if (deleteItem(kind, it)) renderItemsManager(kind); } }, icon("trash", 15)),
+        h("button", { class: "btn small primary", onclick: () => openItem(kind, it.slug) }, "Edit")));
+  };
+  put(els.main, h("div", { class: "welcome" },
+    h("div", { class: "mgr-head" },
+      h("div", {}, h("h1", {}, isP ? "Projects" : "News"),
+        h("p", {}, isP ? "Shown on the Projects page in this order. New projects get a full page in the same design as Kwigira." : "Articles on the News page, newest first.")),
+      h("button", { class: "btn accent", onclick: () => addItem(kind) }, icon("plus", 16), isP ? "Add project" : "Write article")),
+    list.length ? h("div", { class: "mgr-list" }, shown.map(row)) : h("p", { class: "muted" }, "Nothing here yet.")));
+}
+
+// ---- small form helpers for the item editors
+function textField(obj, path, label, { long = false, rows = 3, hint = "", ph = "", onChange } = {}) {
+  const ctl = h(long ? "textarea" : "input", { class: long ? "textarea" : "input", rows: long ? rows : null, placeholder: ph, value: long ? null : getPath(obj, path) ?? "", oninput: (e) => { setPath(obj, path, e.target.value); onChange?.(); } }, long ? getPath(obj, path) ?? "" : null);
+  return h("label", { class: "field", "data-field": path }, h("span", {}, label), ctl, hint ? h("div", { class: "hint" }, hint) : null);
+}
+function photoField(obj, path, label, onChange, hint = "") {
+  const img = h("img", { alt: "" });
+  const empty = h("span", { class: "muted" }, "No photo yet");
+  const draw = () => { const v = getPath(obj, path); img.src = v ? displaySrc(v) : ""; img.style.display = v ? "" : "none"; empty.style.display = v ? "none" : ""; };
+  const use = (url) => { setPath(obj, path, url); draw(); onChange?.(); };
+  const file = h("input", { type: "file", accept: "image/*", style: "display:none", onchange: async (e) => { const f = e.target.files[0]; if (f) use(await addUpload(f)); } });
+  const box = h("div", { class: "pick" }, h("div", { class: "pick-img" }, img, empty),
+    h("div", { class: "pick-btns" },
+      h("button", { type: "button", class: "btn small primary", onclick: () => file.click() }, icon("upload", 15), "Upload"),
+      h("button", { type: "button", class: "btn small", onclick: () => openLibrary(use) }, icon("photos", 15), "Library")), file);
+  box.addEventListener("dragover", (e) => { e.preventDefault(); box.classList.add("over"); });
+  box.addEventListener("dragleave", () => box.classList.remove("over"));
+  box.addEventListener("drop", async (e) => { e.preventDefault(); box.classList.remove("over"); const f = [...e.dataTransfer.files].find((x) => x.type.startsWith("image/")); if (f) use(await addUpload(f)); });
+  draw();
+  return h("div", { class: "field", "data-field": path }, h("div", { class: "flabel" }, label), box, hint ? h("div", { class: "hint" }, hint) : null);
+}
+function seoFields(it, url, fallbackTitle, fallbackDesc) {
+  it.seo ||= { title: "", description: "" };
+  const serp = h("div", { class: "serp" });
+  const draw = () => put(serp,
+    h("div", { class: "site" }, h("img", { src: LOGO, alt: "" }), h("div", {}, "Elevar Architects Group", h("small", {}, "elevararchitectsgroup.com" + url.replace(/\/$/, "").replace(/\//g, " › ")))),
+    h("div", { class: "t" }, short(it.seo.title || fallbackTitle(), 65)),
+    h("div", { class: "d" }, short(it.seo.description || fallbackDesc() || "Add a description so Google shows what this page is about.", 165)));
+  draw();
+  return [serp,
+    textField(it, "seo.title", "Google title (optional)", { ph: fallbackTitle(), hint: "Leave empty to use the name. Aim for 50–60 characters.", onChange: () => { changed(); draw(); } }),
+    textField(it, "seo.description", "Google description (optional)", { long: true, ph: "Uses the short description if empty", hint: "Aim for 140–160 characters.", onChange: () => { changed(); draw(); } }),
+  ];
+}
+function focusField(path) {
+  const el = path && els.panel?.querySelector(`[data-field="${path}"]`);
+  if (!el) { toast("This part is the same on every page of this type."); return; }
+  el.scrollIntoView({ behavior: "smooth", block: "center" });
+  el.classList.remove("flash"); void el.offsetWidth; el.classList.add("flash");
+  setTimeout(() => el.querySelector("input:not([type=file]), textarea, [contenteditable]")?.focus({ preventScroll: true }), 350);
+}
+function editorShell(src, title) {
+  els.main.className = "main";
+  const iframe = h("iframe", { title });
+  els.frameWrap = h("div", { class: "frame-wrap " + S.device }, iframe);
+  const loading = h("div", { class: "stage-loading" }, h("div", { class: "spinner" }));
+  els.panel = h("aside", { class: "panel" });
+  put(els.main, h("section", { class: "stage" }, els.frameWrap, loading), els.panel);
+  return { iframe, loading, start: () => { iframe.src = src; } };
+}
+
+// ---- project editor (new projects)
+const PROJECT_KEYS = { t1: "title", t2: "title", t7: "tagline", t8: "highlights.0.title", t9: "highlights.1.title", t10: "highlights.2.title", t11: "highlights.0.text", t12: "highlights.1.text", t13: "highlights.2.text", t14: "intro_heading", t15: "intro", t18: "section2.heading", t20: "section2.text", t23: "section3.heading", t27: "section3.text", i16: "photos.0", i17: "photos.1", i21: "photos.2", i22: "photos.3" };
+
+function openProjectEditor(slug) {
+  S.view = "project"; S.item = slug; S.page = null; S.selected = null; S.frameDoc = null;
+  renderNav(); renderTop();
+  const it = getItem("projects", slug);
+  const { iframe, loading, start } = editorShell("/admin/templates/project.html", "Project preview");
+  const refresh = () => { if (S.frameDoc) { C.fillProject(S.frameDoc, it, { head: false }); fixPendingImages(S.frameDoc); } };
+  const upd = () => { changed(); refresh(); };
+  const sec = (ic, t, sub) => [h("div", { class: "section-title" }, icon(ic, 15), t), sub ? h("p", { class: "hint", style: "margin:-4px 0 14px" }, sub) : null];
+  put(els.panel,
+    h("div", { class: "panel-head" }, h("h3", {}, icon("layers"), "Project page"), h("p", {}, "Fill in the form. The preview updates as you type, and you can click the preview to jump to a field.")),
+    h("div", { class: "panel-body" },
+      sec("page", "Basics"),
+      textField(it, "title", "Project name", { onChange: () => { upd(); renderTop(); } }),
+      textField(it, "excerpt", "Short description", { long: true, rows: 2, hint: "Shown under the photo on the Projects page.", onChange: upd }),
+      photoField(it, "cover", "Main photo", upd, "Used as the big background at the top and on the Projects page."),
+      textField(it, "tagline", "Tagline", { ph: "e.g. Designing Hope, Dignity, and Empowerment in Kinigi", onChange: upd }),
+      sec("rich", "Three highlights", "The tabs under the title."),
+      [0, 1, 2].map((i) => h("div", { class: "subcard" },
+        textField(it, `highlights.${i}.title`, `Highlight ${i + 1}: title`, { onChange: upd }),
+        textField(it, `highlights.${i}.text`, `Highlight ${i + 1}: text`, { long: true, rows: 4, onChange: upd }))),
+      sec("text", "Story"),
+      textField(it, "intro_heading", "Heading 1", { onChange: upd }),
+      textField(it, "intro", "Text 1", { long: true, rows: 5, onChange: upd }),
+      textField(it, "section2.heading", "Heading 2", { onChange: upd }),
+      textField(it, "section2.text", "Text 2", { long: true, rows: 5, onChange: upd }),
+      textField(it, "section3.heading", "Heading 3", { onChange: upd }),
+      textField(it, "section3.text", "Text 3", { long: true, rows: 5, onChange: upd }),
+      sec("photos", "Photos", "Four photos placed between the text. Empty ones use the main photo."),
+      h("div", { class: "pick-grid" }, [0, 1, 2, 3].map((i) => photoField(it, `photos.${i}`, `Photo ${i + 1}`, upd))),
+      sec("globe", "Google"),
+      seoFields(it, C.projectPath(it), () => `${it.title || "Project"} | Elevar Architects Group`, () => it.excerpt),
+      h("div", { class: "danger-zone" }, h("button", { class: "btn small ghost danger", onclick: () => { if (deleteItem("projects", it)) go("projects"); } }, icon("trash", 15), "Delete this project"))));
+  iframe.addEventListener("load", () => {
+    if (S.item !== slug) return;
+    wireFrame(iframe, (key) => focusField(PROJECT_KEYS[key]));
+    refresh();
+    loading.remove();
+  });
+  start();
+}
+
+// ---- article editor (new articles)
+function bodyEditor(it, onChange) {
+  const ed = h("div", { class: "ed body-ed", contenteditable: "true", html: it.body || "<p></p>" });
+  const save = () => { it.body = cleanHtml(ed.innerHTML); onChange(); };
+  ed.addEventListener("input", save);
+  ed.addEventListener("paste", (e) => { e.preventDefault(); const txt = e.clipboardData.getData("text/plain"); document.execCommand("insertHTML", false, txt.split(/\n\s*\n/).map((p) => `<p>${esc(p).replace(/\n/g, "<br>")}</p>`).join("")); });
+  const cmd = (c, v) => (e) => { e.preventDefault(); ed.focus(); document.execCommand("defaultParagraphSeparator", false, "p"); document.execCommand(c, false, v); save(); };
+  const link = (e) => { e.preventDefault(); const url = prompt("Link address (e.g. /contact/ or https://…). Leave empty to remove the link."); if (url === null) return; ed.focus(); document.execCommand(url ? "createLink" : "unlink", false, url); save(); };
+  const photo = (e) => { e.preventDefault(); const sel = window.getSelection(); const range = sel.rangeCount ? sel.getRangeAt(0) : null; openLibrary((url) => { ed.focus(); if (range) { sel.removeAllRanges(); sel.addRange(range); } document.execCommand("insertHTML", false, `<p><img src="${esc(url)}" alt=""></p>`); save(); }); };
+  const b = (label, title, fn) => h("button", { type: "button", title, onmousedown: fn }, label);
+  return h("div", { class: "field", "data-field": "body" },
+    h("div", { class: "flabel" }, "Article"),
+    h("div", { class: "rich" },
+      h("div", { class: "bar wrap" },
+        b("¶", "Normal text", cmd("formatBlock", "p")), b("H2", "Big heading", cmd("formatBlock", "h2")), b("H3", "Small heading", cmd("formatBlock", "h3")),
+        b(icon("bold", 16), "Bold", cmd("bold")), b(icon("italic", 16), "Italic", cmd("italic")), b(icon("link", 16), "Link", link),
+        b("•", "Bullet list", cmd("insertUnorderedList")), b("1.", "Numbered list", cmd("insertOrderedList")), b("❝", "Quote", cmd("formatBlock", "blockquote")),
+        b(icon("image", 16), "Insert photo", photo)),
+      ed),
+    h("div", { class: "hint" }, "Write or paste your article. Use H2/H3 for headings."));
+}
+function cleanHtml(html) {
+  const t = document.createElement("template");
+  t.innerHTML = html;
+  t.content.querySelectorAll("script,style,iframe,object,embed,form,input,button").forEach((el) => el.remove());
+  t.content.querySelectorAll("span,font").forEach((el) => el.replaceWith(...el.childNodes));
+  t.content.querySelectorAll("div").forEach((el) => { const p = document.createElement("p"); p.append(...el.childNodes); el.replaceWith(p); });
+  t.content.querySelectorAll("*").forEach((el) => { for (const a of [...el.attributes]) if (!(el.tagName === "A" && a.name === "href") && !(el.tagName === "IMG" && (a.name === "src" || a.name === "alt"))) el.removeAttribute(a.name); });
+  return t.innerHTML.trim();
+}
+
+function openPostEditor(slug) {
+  S.view = "post"; S.item = slug; S.page = null; S.selected = null; S.frameDoc = null;
+  renderNav(); renderTop();
+  const it = getItem("news", slug);
+  const { iframe, loading, start } = editorShell("/admin/templates/post.html", "Article preview");
+  const refresh = () => { if (S.frameDoc) { C.fillPost(S.frameDoc, it, { head: false, sanitize: cleanHtml }); fixPendingImages(S.frameDoc); } };
+  const upd = () => { changed(); refresh(); };
+  put(els.panel,
+    h("div", { class: "panel-head" }, h("h3", {}, icon("rich"), "Article"), h("p", {}, "The preview updates as you type.")),
+    h("div", { class: "panel-body" },
+      textField(it, "title", "Title", { onChange: () => { upd(); renderTop(); } }),
+      h("label", { class: "field", "data-field": "date" }, h("span", {}, "Date"), h("input", { class: "input", type: "date", value: it.date, oninput: (e) => { it.date = e.target.value; upd(); } })),
+      photoField(it, "cover", "Main photo", upd, "Shown at the top of the article and on the News page."),
+      textField(it, "excerpt", "Short summary", { long: true, rows: 2, hint: "Used for Google and social media previews.", onChange: upd }),
+      bodyEditor(it, upd),
+      h("div", { class: "section-title" }, icon("globe", 15), "Google"),
+      seoFields(it, C.postPath(it), () => `${it.title || "Article"} | Elevar Architects Group`, () => it.excerpt),
+      h("div", { class: "danger-zone" }, h("button", { class: "btn small ghost danger", onclick: () => { if (deleteItem("news", it)) go("news"); } }, icon("trash", 15), "Delete this article"))));
+  iframe.addEventListener("load", () => {
+    if (S.item !== slug) return;
+    wireFrame(iframe, (key) => focusField({ t3: "title" }[key]));
+    S.frameDoc.addEventListener("click", (e) => {
+      if (e.target.closest(".entry-content")) focusField("body");
+      else if (e.target.closest(".post-thumbnail") && !pickTarget(e.target)) focusField("cover");
+    }, true);
+    refresh();
+    loading.remove();
+  });
+  start();
+}
+
+// ---- services
+function renderServicesManager() {
+  const list = items("services");
+  const { iframe, loading, start } = editorShell("/admin/edit/services/index.html", "Services preview");
+  const refresh = () => { if (S.frameDoc) C.renderServices(S.frameDoc, list, parseFrag); };
+  const upd = () => { changed(); refresh(); };
+  const box = h("div", { class: "svc-list" });
+  const draw = () => put(box, list.map((s, i) => h("div", { class: "svc", "data-field": "s" + i },
+    h("div", { class: "svc-top" },
+      h("span", { class: "svc-n" }, String(i + 1)),
+      h("input", { class: "input", value: s.name, placeholder: "Service name", oninput: (e) => { s.name = e.target.value; upd(); } }),
+      h("button", { class: "btn small ghost", title: "Move up", disabled: i === 0, onclick: () => { [list[i - 1], list[i]] = [list[i], list[i - 1]]; upd(); draw(); } }, "↑"),
+      h("button", { class: "btn small ghost", title: "Move down", disabled: i === list.length - 1, onclick: () => { [list[i + 1], list[i]] = [list[i], list[i + 1]]; upd(); draw(); } }, "↓"),
+      h("button", { class: "btn small ghost danger", title: "Delete", onclick: () => { if (confirm(`Delete "${s.name}"?`)) { list.splice(i, 1); upd(); draw(); } } }, icon("trash", 15))),
+    h("textarea", { class: "textarea", rows: 4, placeholder: "Describe this service", oninput: (e) => { s.description = e.target.value; upd(); } }, s.description || ""))));
+  draw();
+  put(els.panel,
+    h("div", { class: "panel-head" }, h("h3", {}, icon("briefcase"), "Services"), h("p", {}, "Used on the Services page, the homepage list and Google. Order matters.")),
+    h("div", { class: "panel-body" }, box,
+      h("button", { class: "btn accent", style: "width:100%;justify-content:center;margin-top:6px", onclick: () => { list.push({ name: "New service", description: "" }); upd(); draw(); focusField("s" + (list.length - 1)); } }, icon("plus", 16), "Add service")));
+  iframe.addEventListener("load", () => {
+    if (S.view !== "services") return;
+    wireFrame(iframe, () => toast("Edit services in the list on the right."), (target) => {
+      const name = target.closest(".qodef-e-title-holder, li")?.textContent.trim();
+      const i = list.findIndex((s) => s.name.trim() === name);
+      if (i >= 0) focusField("s" + i);
+    });
+    S.frameDoc.head.append(Object.assign(S.frameDoc.createElement("style"), { textContent: '[data-collection="services-accordion"] .qodef-e-content{display:block!important}' }));
+    refresh();
+    loading.remove();
+  });
+  start();
+}
+
+// ---- "listing card" fields on original project / article pages
+function listingCardSection() {
+  if (S.view !== "page" || !isItemPage(S.page)) return null;
+  const kind = S.page.url.startsWith("/portfolio/") ? "projects" : "news";
+  const it = items(kind).find((x) => itemUrl(kind, x) === S.page.url);
+  if (!it) return null;
+  const upd = () => { changed(); refreshFrameLists(S.frameDoc); };
+  return [
+    h("div", { class: "section-title" }, icon("layers", 15), kind === "projects" ? "Card on the Projects page" : "Card on the News page"),
+    textField(it, "title", "Name on the card", { onChange: () => { upd(); renderNav(); } }),
+    kind === "projects" ? textField(it, "excerpt", "Short description", { long: true, rows: 2, onChange: upd }) : null,
+    photoField(it, "cover", "Card photo", upd),
+  ];
 }
 
 // ---------------------------------------------------------------- publish
@@ -696,7 +1063,7 @@ async function publish() {
   for (const p of photos) { if (cur.length && size + p.content.length > 4.5e6) { batches.push(cur); cur = []; size = 0; } cur.push(p); size += p.content.length; }
   if (cur.length) batches.push(cur);
   batches.push(content);
-  const names = files.map((f) => f === BUSINESS_FILE ? "business details" : f === S.globalFile ? "header/footer" : S.pages.find((p) => p.file === f)?.label || f);
+  const names = files.map((f) => f === BUSINESS_FILE ? "business details" : f === S.globalFile ? "header/footer" : f === COLL.projects ? "projects" : f === COLL.news ? "news" : f === COLL.services ? "services" : S.pages.find((p) => p.file === f)?.label || f);
 
   S.publishing = true; renderTop();
   try {
@@ -743,8 +1110,8 @@ window.addEventListener("beforeunload", (e) => { if (countChanges() || S.publish
 async function start() {
   try {
     await loadSchema();
+    await Promise.all([S.globalFile, COLL.projects, COLL.news, COLL.services].map((f) => loadDoc(f)));
     renderShell();
-    await loadDoc(S.globalFile);
     go("home");
     if (store.get(DRAFT_KEY)) {
       for (const f of Object.keys(store.get(DRAFT_KEY))) await loadDoc(f).catch(() => {});

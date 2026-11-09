@@ -7,6 +7,7 @@ import path from "node:path";
 import { parse } from "node-html-parser";
 import { marked } from "marked";
 import { SITE, CONTENT, DIST, ADMIN, PARSE_OPTS, hash, pageSlug, isEditablePage, listHtml } from "./lib.mjs";
+import * as C from "../admin/collections.js";
 
 const readJson = async (f) => { try { return JSON.parse(await fs.readFile(f, "utf8")); } catch { return {}; } };
 
@@ -109,17 +110,39 @@ function patchSchema(root, seo) {
 }
 let pagesChanged = 0, fieldsChanged = 0;
 
-for (const file of await listHtml(DIST)) {
-  const raw = await fs.readFile(file, "utf8");
-  if (!raw.includes("data-cms=")) continue;
-  const rel = path.relative(DIST, file).split(path.sep).join("/");
-  const page = isEditablePage(rel) ? await readJson(path.join(CONTENT, "pages", `${pageSlug(rel)}.json`)) : {};
-  const { seo = {}, ...rest } = page;
-  const vals = { ...globalVals, ...flatten(rest) };
+// ---- collections: projects, news, services ---------------------------------
+const projects = (await readJson(path.join(CONTENT, "projects.json"))).items || [];
+const news = (await readJson(path.join(CONTENT, "news.json"))).items || [];
+const services = (await readJson(path.join(CONTENT, "services.json"))).items || [];
+if (services.length) business.services = services.map((s) => s.name).filter(Boolean);
+const parseEl = (html) => parse(html, PARSE_OPTS).childNodes.find((n) => n.nodeType === 1);
 
-  const root = parse(raw, PARSE_OPTS);
+// Article bodies: keep simple formatting only.
+const ALLOWED = new Set(C.BODY_TAGS);
+function sanitize(html) {
+  const root = parse(`<div>${html || ""}</div>`, PARSE_OPTS);
+  const box = root.childNodes.find((n) => n.nodeType === 1);
+  (function walk(node) {
+    for (const c of [...node.childNodes]) {
+      if (c.nodeType === 8) { c.remove(); continue; }
+      if (c.nodeType !== 1) continue;
+      const tag = c.rawTagName.toLowerCase();
+      if (/^(script|style|iframe|object|embed|svg|math|form|input|button|textarea|select|template|link|meta|noscript)$/.test(tag)) { c.remove(); continue; }
+      walk(c);
+      if (!ALLOWED.has(tag)) { c.replaceWith(...c.childNodes); continue; }
+      for (const a of Object.keys(c.attributes)) {
+        const v = c.getAttribute(a) || "";
+        const ok = (tag === "a" && a === "href" && /^(https?:|mailto:|tel:|\/|#)/i.test(v)) || (tag === "img" && (a === "alt" || (a === "src" && /^(https?:|\/)/i.test(v))));
+        if (!ok) c.removeAttribute(a);
+      }
+      if (tag === "a" && /^https?:/i.test(c.getAttribute("href") || "")) { c.setAttribute("target", "_blank"); c.setAttribute("rel", "noopener"); }
+    }
+  })(box);
+  return box.innerHTML;
+}
+
+function applyFields(root, vals) {
   let changed = 0;
-
   for (const el of root.querySelectorAll("[data-cms]")) {
     const key = el.getAttribute("data-cms");
     const orig = el.getAttribute("data-cms-h");
@@ -141,6 +164,32 @@ for (const file of await listHtml(DIST)) {
       changed++;
     }
   }
+  return changed;
+}
+
+function renderCollections(root) {
+  if (!root.querySelector("[data-collection]")) return 0;
+  C.renderProjectCards(root, projects, parseEl);
+  C.renderNewsCards(root, news, parseEl);
+  C.renderServices(root, services, parseEl);
+  return 1;
+}
+
+const publicHtml = (html) => html.replace(/\sdata-(?:cms|cms-h|collection|group)="[^"]*"/g, "");
+
+for (const file of await listHtml(DIST)) {
+  const raw = await fs.readFile(file, "utf8");
+  if (!raw.includes("data-cms=") && !raw.includes("data-collection=")) continue;
+  const rel = path.relative(DIST, file).split(path.sep).join("/");
+  if (rel.startsWith("admin/")) continue;
+  const page = isEditablePage(rel) ? await readJson(path.join(CONTENT, "pages", `${pageSlug(rel)}.json`)) : {};
+  const { seo = {}, ...rest } = page;
+  const vals = { ...globalVals, ...flatten(rest) };
+
+  const root = parse(raw, PARSE_OPTS);
+  let changed = applyFields(root, vals);
+  changed += renderCollections(root);
+  if (rel === C.POST_TEMPLATE.file) { C.fixShareLinks(root, C.POST_TEMPLATE.path, root.querySelector("h1.entry-title")?.text.trim()); changed++; }
 
   const titleEl = root.querySelector("title");
   if (seo.title && titleEl && seo.title !== titleEl.text.trim()) {
@@ -161,7 +210,7 @@ for (const file of await listHtml(DIST)) {
   if (patchSchema(root, seo)) changed++;
 
   const tagged = changed ? root.toString() : raw;
-  await fs.writeFile(file, tagged.replace(/\sdata-cms(?:-h)?="[^"]*"/g, ""));
+  await fs.writeFile(file, publicHtml(tagged));
   // Dashboard copy: same page, but keeps the data-cms tags so it can be clicked to edit.
   if (isEditablePage(rel)) {
     const editFile = path.join(DIST, "admin", "edit", ...rel.split("/"));
@@ -170,6 +219,69 @@ for (const file of await listHtml(DIST)) {
   }
   if (changed) { pagesChanged++; fieldsChanged += changed; }
 }
+
+// ---- new project and news pages, built from the existing designs -----------
+const redirects = [];
+async function writePage(urlPath, html) {
+  const out = path.join(DIST, ...urlPath.split("/").filter(Boolean), "index.html");
+  await fs.mkdir(path.dirname(out), { recursive: true });
+  await fs.writeFile(out, publicHtml(html));
+}
+async function fromTemplate(tplFile, fill, item) {
+  const root = parse(await fs.readFile(path.join(SITE, ...tplFile.split("/")), "utf8"), PARSE_OPTS);
+  applyFields(root, globalVals); // shared header/footer edits
+  fill(root, item);
+  patchSchema(root, { title: item.seo?.title, description: item.seo?.description || item.excerpt });
+  return root.toString();
+}
+// dashboard preview templates (header/footer applied, tags kept)
+await fs.mkdir(path.join(DIST, "admin", "templates"), { recursive: true });
+for (const [name, tpl] of [["project", C.PROJECT_TEMPLATE.file], ["post", C.POST_TEMPLATE.file]]) {
+  const root = parse(await fs.readFile(path.join(SITE, ...tpl.split("/")), "utf8"), PARSE_OPTS);
+  applyFields(root, globalVals);
+  await fs.writeFile(path.join(DIST, "admin", "templates", `${name}.html`), root.toString());
+}
+
+for (const p of projects.filter((x) => x.kind === "new" && x.slug)) {
+  await writePage(C.projectPath(p), await fromTemplate(C.PROJECT_TEMPLATE.file, (r, it) => C.fillProject(r, it), p));
+}
+for (const p of news.filter((x) => x.kind === "new" && x.slug)) {
+  await writePage(C.postPath(p), await fromTemplate(C.POST_TEMPLATE.file, (r, it) => C.fillPost(r, it, { sanitize }), p));
+}
+
+// original pages that were deleted in the dashboard
+const keepProjects = new Set(projects.map((p) => p.slug));
+for (const d of await fs.readdir(path.join(SITE, "portfolio"), { withFileTypes: true })) {
+  if (d.isDirectory() && !keepProjects.has(d.name)) {
+    await fs.rm(path.join(DIST, "portfolio", d.name), { recursive: true, force: true });
+    await fs.rm(path.join(DIST, "admin", "edit", "portfolio", d.name), { recursive: true, force: true });
+    redirects.push(`/portfolio/${d.name}/ /projects/ 301`);
+  }
+}
+const originalPost = C.POST_TEMPLATE.path.replace(/\//g, "");
+if (!news.some((p) => p.slug === originalPost)) {
+  await fs.rm(path.join(DIST, originalPost), { recursive: true, force: true });
+  await fs.rm(path.join(DIST, "admin", "edit", originalPost), { recursive: true, force: true });
+  redirects.push(`${C.POST_TEMPLATE.path} /news/ 301`);
+}
+if (redirects.length) await fs.appendFile(path.join(DIST, "_redirects"), redirects.join("\n") + "\n");
+
+// sitemaps: one entry per project / article
+async function rewriteSitemap(file, items, toPath, isItemLoc) {
+  const f = path.join(DIST, file);
+  let xml; try { xml = await fs.readFile(f, "utf8"); } catch { return; }
+  const blocks = [...xml.matchAll(/<url>[\s\S]*?<\/url>/g)].map((m) => [(/<loc>([^<]+)<\/loc>/.exec(m[0]) || [])[1], m[0]]);
+  const byLoc = new Map(blocks);
+  const urls = blocks.filter(([loc]) => !isItemLoc(loc)).map(([, b]) => b);
+  for (const it of items.filter((x) => !x.hidden)) {
+    const loc = SITE_URL + toPath(it);
+    urls.push(byLoc.get(loc) || `<url>\n\t\t<loc>${loc}</loc>\n\t\t<lastmod>${new Date(it.date || Date.now()).toISOString().replace(/\.\d+Z$/, "+00:00")}</lastmod>${it.cover ? `\n\t\t<image:image>\n\t\t\t<image:loc>${SITE_URL + it.cover}</image:loc>\n\t\t</image:image>` : ""}\n\t</url>`);
+  }
+  const start = xml.indexOf("<url>") === -1 ? xml.indexOf("</urlset>") : xml.indexOf("<url>");
+  await fs.writeFile(f, xml.slice(0, start) + urls.join("\n\t") + "\n</urlset>" + xml.slice(xml.indexOf("</urlset>") + 9));
+}
+await rewriteSitemap("portfolio-sitemap.xml", projects, C.projectPath, (loc) => /\/portfolio\/[^/]+\/$/.test(loc));
+await rewriteSitemap("post-sitemap.xml", news, C.postPath, (loc) => loc !== SITE_URL + "/news/" && loc !== SITE_URL + "/");
 
 // ---- dashboard data ---------------------------------------------------------
 

@@ -148,54 +148,6 @@
                   "name": "t15",
                   "widget": "text",
                   "required": false
-                },
-                {
-                  "label": "Text: “Architecture Design & Space Planning”",
-                  "name": "t16",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Master / Campus Development Planning”",
-                  "name": "t17",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Landscaping & Interior Architecture”",
-                  "name": "t18",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Adaptive Reuse & Renovation”",
-                  "name": "t19",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Structural & Building Services (MEP) Engineering …”",
-                  "name": "t20",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Construction Administration”",
-                  "name": "t21",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Post-Occupancy Evaluation”",
-                  "name": "t22",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Project Management”",
-                  "name": "t23",
-                  "widget": "text",
-                  "required": false
                 }
               ]
             },
@@ -2416,96 +2368,6 @@
                   "name": "t1",
                   "widget": "text",
                   "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2025/03/01_3-Photo-min-550x30…”",
-                  "name": "i2",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i2_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “[ELEVAR Group: Community-Driven Architecture](/el…”",
-                  "name": "m3",
-                  "widget": "markdown",
-                  "required": false,
-                  "buttons": [
-                    "bold",
-                    "italic",
-                    "link"
-                  ],
-                  "editor_components": [],
-                  "modes": [
-                    "rich_text",
-                    "raw"
-                  ],
-                  "minimal": true
-                },
-                {
-                  "label": "Text: “in”",
-                  "name": "t4",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “News”",
-                  "name": "t5",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “on”",
-                  "name": "t6",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Share”",
-                  "name": "t7",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “Facebook”",
-                  "name": "t8",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “Twitter”",
-                  "name": "t9",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “Pinterest”",
-                  "name": "t10",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “Email”",
-                  "name": "t11",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “…”",
-                  "name": "t12",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “Read More”",
-                  "name": "t13",
-                  "widget": "text",
-                  "required": false
                 }
               ]
             }
@@ -2548,114 +2410,6 @@
                 {
                   "label": "Heading H1: “Projects”",
                   "name": "t1",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2025/03/Render_250326-550x362…”",
-                  "name": "i2",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i2_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “[Kwigira Women and Children Center](/portfolio/kw…”",
-                  "name": "m3",
-                  "widget": "markdown",
-                  "required": false,
-                  "buttons": [
-                    "bold",
-                    "italic",
-                    "link"
-                  ],
-                  "editor_components": [],
-                  "modes": [
-                    "rich_text",
-                    "raw"
-                  ],
-                  "minimal": true
-                },
-                {
-                  "label": "Text: “Community Center that provides vocational educati…”",
-                  "name": "t4",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2025/03/KWIGIRA-CENTER-TEMP-S…”",
-                  "name": "i5",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i5_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “[Pre-Engineered School Building](/portfolio/pre-e…”",
-                  "name": "m6",
-                  "widget": "markdown",
-                  "required": false,
-                  "buttons": [
-                    "bold",
-                    "italic",
-                    "link"
-                  ],
-                  "editor_components": [],
-                  "modes": [
-                    "rich_text",
-                    "raw"
-                  ],
-                  "minimal": true
-                },
-                {
-                  "label": "Text: “Innovative School Design Using Pre-Engineered Shi…”",
-                  "name": "t7",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2025/03/01_3-Photo-min-550x36…”",
-                  "name": "i8",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i8_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “[Rural Community Center and Local Market](/portfo…”",
-                  "name": "m9",
-                  "widget": "markdown",
-                  "required": false,
-                  "buttons": [
-                    "bold",
-                    "italic",
-                    "link"
-                  ],
-                  "editor_components": [],
-                  "modes": [
-                    "rich_text",
-                    "raw"
-                  ],
-                  "minimal": true
-                },
-                {
-                  "label": "Text: “Rural One-Stop Community Hub with Shopping, Sport…”",
-                  "name": "t10",
                   "widget": "text",
                   "required": false
                 }
@@ -2734,60 +2488,6 @@
                   "name": "t5",
                   "widget": "text",
                   "required": false
-                },
-                {
-                  "label": "Text: “Architecture Design & Space Planning”",
-                  "name": "t6",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Master Planning & Campus Development”",
-                  "name": "t7",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Landscape & Interior Architecture”",
-                  "name": "t8",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Adaptive Reuse & Renovation”",
-                  "name": "t9",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Project Management”",
-                  "name": "t10",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Structural & MEP Engineering Services”",
-                  "name": "t11",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Construction Administration”",
-                  "name": "t12",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Post-Occupancy Evaluation”",
-                  "name": "t13",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Preliminary Studies & Stakeholder Engagement”",
-                  "name": "t14",
-                  "widget": "text",
-                  "required": false
                 }
               ]
             },
@@ -2823,42 +2523,6 @@
                   "name": "i16_alt",
                   "widget": "string",
                   "required": false
-                },
-                {
-                  "label": "Text: “Architecture Design & Space Planning”",
-                  "name": "t17",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “We provide comprehensive architectural design ser…”",
-                  "name": "t18",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Master / Campus Development Planning”",
-                  "name": "t19",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Our team offers large-scale master planning servi…”",
-                  "name": "t20",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Landscape & Interior Architecture”",
-                  "name": "t21",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “We craft outdoor and interior environments that e…”",
-                  "name": "t22",
-                  "widget": "text",
-                  "required": false
                 }
               ]
             },
@@ -2871,42 +2535,6 @@
                 {
                   "label": "Heading H2: “Design and construction with purpose.”",
                   "name": "t23",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Adaptive Reuse & Renovation”",
-                  "name": "t24",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “ELEVAR is committed to sustainability through ada…”",
-                  "name": "t25",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Structural & Building Services (MEP) Engineering …”",
-                  "name": "t26",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Our integrated engineering services encompass str…”",
-                  "name": "t27",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Construction Administration”",
-                  "name": "t28",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “During construction, we actively engage with cont…”",
-                  "name": "t29",
                   "widget": "text",
                   "required": false
                 },
@@ -2942,42 +2570,6 @@
                   "label": "↳ Alt text",
                   "name": "i31_alt",
                   "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Post-Occupancy Evaluation”",
-                  "name": "t32",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Our commitment to design excellence doesn’t end a…”",
-                  "name": "t33",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Preliminary Studies & Stakeholder Engagement”",
-                  "name": "t34",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Every successful project begins with clear goals …”",
-                  "name": "t35",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Project Management”",
-                  "name": "t36",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “We offer end-to-end project management services t…”",
-                  "name": "t37",
-                  "widget": "text",
                   "required": false
                 }
               ]

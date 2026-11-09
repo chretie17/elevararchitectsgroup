@@ -231,3 +231,41 @@ details.group .items { padding-bottom: 10px; }
   .two { grid-template-columns: 1fr; }
   .welcome, .form-page, .lib { padding: 20px 16px; }
 }
+
+/* ---- projects / news / services managers ---- */
+.mgr-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
+.mgr-head h1 { margin: 0 0 4px; font-size: 26px; }
+.mgr-head p { margin: 0; color: var(--ink-3); max-width: 620px; }
+.mgr-list { display: flex; flex-direction: column; gap: 12px; max-width: 980px; }
+.mgr-row { display: flex; align-items: center; gap: 16px; background: #fff; border-radius: 14px; box-shadow: var(--shadow); padding: 12px; }
+.mgr-thumb { width: 132px; height: 88px; flex: none; border: 0; border-radius: 10px; background: var(--bg) center / cover no-repeat; display: grid; place-items: center; color: var(--ink-3); }
+.mgr-txt { flex: 1; min-width: 0; }
+.mgr-txt b { display: block; font-size: 15.5px; }
+.mgr-txt > span { display: block; color: var(--ink-3); font-size: 13px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; margin: 2px 0 6px; }
+.chips { display: flex; gap: 6px; flex-wrap: wrap; }
+.mgr-actions { display: flex; align-items: center; gap: 4px; flex: none; }
+.subcard { border: 1px solid var(--line); border-radius: 10px; padding: 14px 14px 0; margin-bottom: 14px; }
+.flabel { font-weight: 600; font-size: 13px; margin-bottom: 6px; }
+.pick { display: flex; gap: 12px; align-items: center; border: 1px dashed var(--line-2); border-radius: 10px; padding: 8px; transition: border-color .15s, background .15s; }
+.pick.over { border-color: var(--sel); background: var(--sel-soft); }
+.pick-img { width: 110px; height: 74px; border-radius: 8px; background: var(--bg); overflow: hidden; display: grid; place-items: center; flex: none; font-size: 11px; text-align: center; }
+.pick-img img { width: 100%; height: 100%; object-fit: cover; }
+.pick-btns { display: flex; flex-direction: column; gap: 6px; }
+.pick-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+.flash { animation: flash 1.2s ease; border-radius: 10px; }
+@keyframes flash { 0%, 40% { box-shadow: 0 0 0 4px rgba(47,111,237,.35); background: var(--sel-soft); } 100% { box-shadow: 0 0 0 0 transparent; } }
+.danger-zone { border-top: 1px solid var(--line); margin-top: 24px; padding-top: 16px; }
+.rich .bar.wrap { flex-wrap: wrap; }
+.rich .bar button { font-weight: 700; font-size: 13px; }
+.body-ed { min-height: 260px; }
+.body-ed h2 { font-size: 20px; margin: 14px 0 6px; } .body-ed h3 { font-size: 16px; margin: 12px 0 6px; }
+.body-ed p { margin: 0 0 10px; } .body-ed img { max-width: 100%; border-radius: 6px; }
+.body-ed blockquote { border-left: 3px solid var(--accent); margin: 10px 0; padding: 2px 12px; color: var(--ink-2); }
+.svc { border: 1px solid var(--line); border-radius: 12px; padding: 10px; margin-bottom: 10px; background: #fff; }
+.svc-top { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; }
+.svc-top .input { flex: 1; font-weight: 600; }
+.svc-n { width: 24px; height: 24px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); display: grid; place-items: center; font-size: 12px; font-weight: 700; flex: none; }
+.modal.small { width: min(440px, 100%); height: auto; padding: 22px 24px 16px; background: #fff; display: block; }
+.modal.small h3 { margin: 0 0 16px; font-size: 18px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
+@media (max-width: 860px) { .mgr-row { flex-wrap: wrap; } .mgr-thumb { width: 100%; height: 140px; } }

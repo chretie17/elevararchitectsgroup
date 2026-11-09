@@ -34,6 +34,20 @@ reaches the browser; the browser only gets a signed, HttpOnly session cookie.
 The build writes click-to-edit copies of each page to `dist/admin/edit/`, the
 photo list to `dist/admin/media.json` and the deployed commit to `dist/admin/build.json`.
 
+### Projects, news and services
+
+- **Projects** (`content/projects.json`): add, reorder and delete projects. New
+  projects get a full page built from the Kwigira page design
+  (`admin/collections.js` fills it), a card on /projects/ and a sitemap entry.
+  Deleting an original project removes its page and redirects it to /projects/.
+- **News** (`content/news.json`): write articles with a simple editor; each gets
+  a page in the existing article design, a card on /news/ and a sitemap entry.
+- **Services** (`content/services.json`): one list drives the Services page
+  overview and accordions, the homepage list and Google business data.
+
+The same `admin/collections.js` code fills pages in the build and in the
+dashboard preview, so the preview matches what gets published.
+
 Netlify → Site configuration → Environment variables (then redeploy):
 
 - `ADMIN_PASSWORD`: the dashboard password. Changing it signs everyone out.
