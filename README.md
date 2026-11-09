@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Elevar Architects Group – website
 
 Static copy of the former WordPress site (Hostinger), hosted on **Netlify**, with an
@@ -44,6 +43,3 @@ npm run serve      # preview dist/ at http://localhost:3000
 Re-exporting from WordPress (only while the old site is still online) overwrites
 `site/`, and `npm run extract` overwrites `content/` and `admin/config.yml`, so any
 edits made in `/admin` would be lost. Normally you never need to run these again.
-=======
-# elevararchitectsgroup
->>>>>>> 6e66f7bb2c36f9611f8c7db30019a4b6d6ba21f8

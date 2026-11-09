@@ -1,0 +1,27 @@
+{
+  "name": "Elevar Architects Group Ltd",
+  "alternate_name": "Elevar Group",
+  "slogan": "Architecture That Elevates.",
+  "description": "Elevar Architects Group is an architecture and engineering firm in Kigali, Rwanda, uniting young Rwandan professionals to design purposeful, sustainable and community-centred buildings, campuses and public spaces.",
+  "phone": "+250788351457",
+  "email": "info@elevararchitectsgroup.com",
+  "street": "Kimihurura",
+  "city": "Kigali",
+  "region": "Gasabo",
+  "country": "RW",
+  "area_served": "Rwanda",
+  "logo": "/wp-content/uploads/2025/12/elevar_1-05-scaled-e1764947847136-1075x500.png",
+  "image": "/wp-content/uploads/2025/03/SABYINYO-VIEW-min-1024x771.png",
+  "services": [
+    "Architecture Design & Space Planning",
+    "Master Planning & Campus Development",
+    "Landscape & Interior Architecture",
+    "Adaptive Reuse & Renovation",
+    "Structural & MEP Engineering",
+    "Construction Administration",
+    "Project Management",
+    "Post-Occupancy Evaluation",
+    "Preliminary Studies & Stakeholder Engagement"
+  ],
+  "social_links": []
+}

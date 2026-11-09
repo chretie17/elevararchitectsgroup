@@ -227,7 +227,7 @@ async function make404() {
 
 await fs.rm(OUT, { recursive: true, force: true });
 await fs.mkdir(OUT, { recursive: true });
-for (const u of ["/", "/robots.txt", "/favicon.ico", "/llms.txt", ...(await sitemapUrls())]) enqueue(u, ORIGIN);
+for (const u of ["/", "/robots.txt", "/sitemap_index.xml", "/favicon.ico", "/llms.txt", ...(await sitemapUrls())]) enqueue(u, ORIGIN);
 await drain();
 await make404();
 await drain();

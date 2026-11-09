@@ -7,6 +7,71 @@
 
 # Old WordPress URLs that no longer exist on a static site
 [[redirects]]
+  from = "/sitemap.xml"
+  to = "/sitemap_index.xml"
+  status = 301
+
+# Duplicate demo copies of the homepage
+[[redirects]]
+  from = "/home/"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/home-03/"
+  to = "/"
+  status = 301
+  force = true
+
+# Thin WordPress archive pages -> the real pages
+[[redirects]]
+  from = "/author/*"
+  to = "/about/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/category/*"
+  to = "/news/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/tag/*"
+  to = "/news/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/2025/*"
+  to = "/news/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/author-sitemap.xml"
+  to = "/sitemap_index.xml"
+  status = 301
+
+[[redirects]]
+  from = "/category-sitemap.xml"
+  to = "/sitemap_index.xml"
+  status = 301
+
+[[redirects]]
+  from = "/post_tag-sitemap.xml"
+  to = "/sitemap_index.xml"
+  status = 301
+
+# www -> main domain (once both are added in Netlify)
+[[redirects]]
+  from = "https://www.elevararchitectsgroup.com/*"
+  to = "https://elevararchitectsgroup.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
   from = "/wp-admin/*"
   to = "/admin/"
   status = 301

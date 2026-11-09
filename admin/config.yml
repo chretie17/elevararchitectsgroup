@@ -27,7 +27,7 @@
           "format": "json",
           "fields": [
             {
-              "label": "Search engine (SEO)",
+              "label": "Search engine (SEO): Google title & description",
               "name": "seo",
               "widget": "object",
               "collapsed": true,
@@ -35,13 +35,15 @@
                 {
                   "label": "Page title",
                   "name": "title",
-                  "widget": "string"
+                  "widget": "string",
+                  "hint": "Shown as the blue link in Google. Aim for 50-60 characters."
                 },
                 {
                   "label": "Description",
                   "name": "description",
                   "widget": "text",
-                  "required": false
+                  "required": false,
+                  "hint": "Shown under the link in Google. Aim for 140-160 characters."
                 }
               ]
             },
@@ -1072,7 +1074,7 @@
           "format": "json",
           "fields": [
             {
-              "label": "Search engine (SEO)",
+              "label": "Search engine (SEO): Google title & description",
               "name": "seo",
               "widget": "object",
               "collapsed": true,
@@ -1080,13 +1082,15 @@
                 {
                   "label": "Page title",
                   "name": "title",
-                  "widget": "string"
+                  "widget": "string",
+                  "hint": "Shown as the blue link in Google. Aim for 50-60 characters."
                 },
                 {
                   "label": "Description",
                   "name": "description",
                   "widget": "text",
-                  "required": false
+                  "required": false,
+                  "hint": "Shown under the link in Google. Aim for 140-160 characters."
                 }
               ]
             },
@@ -1787,7 +1791,7 @@
           "format": "json",
           "fields": [
             {
-              "label": "Search engine (SEO)",
+              "label": "Search engine (SEO): Google title & description",
               "name": "seo",
               "widget": "object",
               "collapsed": true,
@@ -1795,13 +1799,15 @@
                 {
                   "label": "Page title",
                   "name": "title",
-                  "widget": "string"
+                  "widget": "string",
+                  "hint": "Shown as the blue link in Google. Aim for 50-60 characters."
                 },
                 {
                   "label": "Description",
                   "name": "description",
                   "widget": "text",
-                  "required": false
+                  "required": false,
+                  "hint": "Shown under the link in Google. Aim for 140-160 characters."
                 }
               ]
             },
@@ -2096,7 +2102,7 @@
           "format": "json",
           "fields": [
             {
-              "label": "Search engine (SEO)",
+              "label": "Search engine (SEO): Google title & description",
               "name": "seo",
               "widget": "object",
               "collapsed": true,
@@ -2104,13 +2110,15 @@
                 {
                   "label": "Page title",
                   "name": "title",
-                  "widget": "string"
+                  "widget": "string",
+                  "hint": "Shown as the blue link in Google. Aim for 50-60 characters."
                 },
                 {
                   "label": "Description",
                   "name": "description",
                   "widget": "text",
-                  "required": false
+                  "required": false,
+                  "hint": "Shown under the link in Google. Aim for 140-160 characters."
                 }
               ]
             },
@@ -2369,2431 +2377,13 @@
           ]
         },
         {
-          "name": "home-03",
-          "label": "Home 03 (/home-03/)",
-          "file": "content/pages/home-03.json",
-          "format": "json",
-          "fields": [
-            {
-              "label": "Search engine (SEO)",
-              "name": "seo",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Page title",
-                  "name": "title",
-                  "widget": "string"
-                },
-                {
-                  "label": "Description",
-                  "name": "description",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 1: Architecture is our passion, design is …",
-              "name": "s_549cc74",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/3d-illustration-amazi…”",
-                  "name": "i1",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i1_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Architecture”",
-                  "name": "t2",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Architects offer design and planning services for…”",
-                  "name": "t3",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/3d-illustration-amazi…”",
-                  "name": "i4",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i4_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Building”",
-                  "name": "t5",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Architects can manage the construction process fr…”",
-                  "name": "t6",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/3d-illustration-amazi…”",
-                  "name": "i7",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i7_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Designing”",
-                  "name": "t8",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Many architects specialize in sustainable design,…”",
-                  "name": "t9",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/3d-illustration-amazi…”",
-                  "name": "i10",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i10_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Transforming”",
-                  "name": "t11",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Architects can conduct site analysis and evaluati…”",
-                  "name": "t12",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Prev”",
-                  "name": "t13",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Next”",
-                  "name": "t14",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “[01](#)”",
-                  "name": "m15",
-                  "widget": "markdown",
-                  "required": false,
-                  "buttons": [
-                    "bold",
-                    "italic",
-                    "link"
-                  ],
-                  "editor_components": [],
-                  "modes": [
-                    "rich_text",
-                    "raw"
-                  ],
-                  "minimal": true
-                },
-                {
-                  "label": "Text: “[02](#)”",
-                  "name": "m16",
-                  "widget": "markdown",
-                  "required": false,
-                  "buttons": [
-                    "bold",
-                    "italic",
-                    "link"
-                  ],
-                  "editor_components": [],
-                  "modes": [
-                    "rich_text",
-                    "raw"
-                  ],
-                  "minimal": true
-                },
-                {
-                  "label": "Text: “[03](#)”",
-                  "name": "m17",
-                  "widget": "markdown",
-                  "required": false,
-                  "buttons": [
-                    "bold",
-                    "italic",
-                    "link"
-                  ],
-                  "editor_components": [],
-                  "modes": [
-                    "rich_text",
-                    "raw"
-                  ],
-                  "minimal": true
-                },
-                {
-                  "label": "Text: “[04](#)”",
-                  "name": "m18",
-                  "widget": "markdown",
-                  "required": false,
-                  "buttons": [
-                    "bold",
-                    "italic",
-                    "link"
-                  ],
-                  "editor_components": [],
-                  "modes": [
-                    "rich_text",
-                    "raw"
-                  ],
-                  "minimal": true
-                },
-                {
-                  "label": "Text: “04”",
-                  "name": "t19",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 2: We specialize in these fields.",
-              "name": "s_59dcb9b",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “We”",
-                  "name": "t20",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “specialize”",
-                  "name": "t21",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “in”",
-                  "name": "t22",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “these”",
-                  "name": "t23",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “fields.”",
-                  "name": "t24",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “The homepage of an architecture website serves as…”",
-                  "name": "t25",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “All Services”",
-                  "name": "t26",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Feasibility Studies”",
-                  "name": "t27",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Conceptual Design”",
-                  "name": "t28",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Design Development”",
-                  "name": "t29",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Permitting and Approvals”",
-                  "name": "t30",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Construction Documents”",
-                  "name": "t31",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Bidding and Negotiation”",
-                  "name": "t32",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Construction Administration”",
-                  "name": "t33",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Post-Occupancy Evaluation”",
-                  "name": "t34",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Project Management”",
-                  "name": "t35",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 3: Clients Around the World",
-              "name": "s_4e7a595",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Counter number (Clients Around the World): 64",
-                  "name": "n36",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H3: “Clients Around the World”",
-                  "name": "t37",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Counter number (Projects Completed): 124",
-                  "name": "n38",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H3: “Projects Completed”",
-                  "name": "t39",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Counter number (Square Feet): 244",
-                  "name": "n40",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H3: “Square Feet”",
-                  "name": "t41",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 4",
-              "name": "s_1e49e437",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “Construction”",
-                  "name": "t42",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Interior Design”",
-                  "name": "t43",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Modern Structures”",
-                  "name": "t44",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Thinking outside of the box”",
-                  "name": "t45",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Construction”",
-                  "name": "t46",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Interior Design”",
-                  "name": "t47",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Modern Structures”",
-                  "name": "t48",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Thinking outside of the box”",
-                  "name": "t49",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 5: \"Discover Our Story\"",
-              "name": "s_fe7e218",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “About Us”",
-                  "name": "t50",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “\"Discover”",
-                  "name": "t51",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Our”",
-                  "name": "t52",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Story\"”",
-                  "name": "t53",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “Designing the future, today - welcome to our arch…”",
-                  "name": "t54",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 6: History",
-              "name": "s_1550dd9",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/closeup-facade-modern…”",
-                  "name": "i55",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i55_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/ancient-column-pedest…”",
-                  "name": "i56",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i56_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/charming-greek-villag…”",
-                  "name": "i57",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i57_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/charming-greek-villag…”",
-                  "name": "i58",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i58_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Text: “History”",
-                  "name": "t59",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Description”",
-                  "name": "t60",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Reviews”",
-                  "name": "t61",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Archy was founded in 1936 in Chicago, USA. The co…”",
-                  "name": "t62",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “SOM has been responsible for the design of many n…”",
-                  "name": "t63",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Throughout its history, SOM has been recognized f…”",
-                  "name": "t64",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “We believe that good design should not only be ae…”",
-                  "name": "t65",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Ratings and reviews, A numerical rating system an…”",
-                  "name": "t66",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H5: “Architecture”",
-                  "name": "t67",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H5: “Functional Spaces”",
-                  "name": "t68",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H5: “Renovation”",
-                  "name": "t69",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 7",
-              "name": "s_83fa8a7",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/michael-demarco-oB0r-…”",
-                  "name": "i70",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i70_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/wooden-surface-that-h…”",
-                  "name": "i71",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i71_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/modern-architecture-u…”",
-                  "name": "i72",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i72_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/luxury-residential-de…”",
-                  "name": "i73",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i73_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/contemporary-unique-v…”",
-                  "name": "i74",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i74_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/ancient-column-pedest…”",
-                  "name": "i75",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i75_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/3d-rendering-modern-l…”",
-                  "name": "i76",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i76_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/3d-illustration-amazi…”",
-                  "name": "i77",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i77_alt",
-                  "widget": "string",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 8: Consultation and initial meeting",
-              "name": "s_6d64edff",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “1.”",
-                  "name": "t78",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H3: “Consultation and initial meeting”",
-                  "name": "t79",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “The architecture company meets with the client to…”",
-                  "name": "t80",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “2.”",
-                  "name": "t81",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H3: “Concept design”",
-                  "name": "t82",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Based on the client's requirements, the architect…”",
-                  "name": "t83",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “3.”",
-                  "name": "t84",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H3: “Design development”",
-                  "name": "t85",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Once the client approves the concept design, the …”",
-                  "name": "t86",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “4.”",
-                  "name": "t87",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H3: “Permitting and approvals”",
-                  "name": "t88",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Before construction can begin, the architecture c…”",
-                  "name": "t89",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 9: \"Building a legacy, one project at a ti…",
-              "name": "s_5d9e5e4d",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “Latest Projects”",
-                  "name": "t90",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “\"Building”",
-                  "name": "t91",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “a”",
-                  "name": "t92",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “legacy,”",
-                  "name": "t93",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “one”",
-                  "name": "t94",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “project”",
-                  "name": "t95",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “at”",
-                  "name": "t96",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “a”",
-                  "name": "t97",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “time\"”",
-                  "name": "t98",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “Whether you're an architect, designer, or simply …”",
-                  "name": "t99",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 10: Kwigira Women and Children Center",
-              "name": "s_19dcc600",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “Kwigira”",
-                  "name": "t100",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Pre-Engineered”",
-                  "name": "t101",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Rural”",
-                  "name": "t102",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “[01](#)”",
-                  "name": "m103",
-                  "widget": "markdown",
-                  "required": false,
-                  "buttons": [
-                    "bold",
-                    "italic",
-                    "link"
-                  ],
-                  "editor_components": [],
-                  "modes": [
-                    "rich_text",
-                    "raw"
-                  ],
-                  "minimal": true
-                },
-                {
-                  "label": "Text: “[02](#)”",
-                  "name": "m104",
-                  "widget": "markdown",
-                  "required": false,
-                  "buttons": [
-                    "bold",
-                    "italic",
-                    "link"
-                  ],
-                  "editor_components": [],
-                  "modes": [
-                    "rich_text",
-                    "raw"
-                  ],
-                  "minimal": true
-                },
-                {
-                  "label": "Text: “[03](#)”",
-                  "name": "m105",
-                  "widget": "markdown",
-                  "required": false,
-                  "buttons": [
-                    "bold",
-                    "italic",
-                    "link"
-                  ],
-                  "editor_components": [],
-                  "modes": [
-                    "rich_text",
-                    "raw"
-                  ],
-                  "minimal": true
-                },
-                {
-                  "label": "Text: “03”",
-                  "name": "t106",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 11: Latest News",
-              "name": "s_6531e5c",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “Latest News”",
-                  "name": "t107",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Latest”",
-                  "name": "t108",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “News”",
-                  "name": "t109",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “\"Our team is comprised of experienced architects,…”",
-                  "name": "t110",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 12: ELEVAR Group: Community-Driven Architec…",
-              "name": "s_0b0287e",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Image: “/wp-content/uploads/2025/03/01_3-Photo-min-1300x6…”",
-                  "name": "i111",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i111_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “April 25, 2025”",
-                  "name": "t112",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “News”",
-                  "name": "t113",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “ELEVAR Group: Community-Driven Architecture”",
-                  "name": "t114",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 13: \"Meet the team behind the designs\"",
-              "name": "s_b0599c",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “\"Meet”",
-                  "name": "t115",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “the”",
-                  "name": "t116",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “team”",
-                  "name": "t117",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “behind”",
-                  "name": "t118",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “the”",
-                  "name": "t119",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “designs\"”",
-                  "name": "t120",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “\"Our team is comprised of experienced architects,…”",
-                  "name": "t121",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 14: Alisson Taylor",
-              "name": "s_243088d",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/travel-agent-hearing-…”",
-                  "name": "i122",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i122_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Heading H4: “Alisson Taylor”",
-                  "name": "t123",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Team Manager”",
-                  "name": "t124",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/handsome-mature-busin…”",
-                  "name": "i125",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i125_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Heading H4: “Roger Craig”",
-                  "name": "t126",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “CEO”",
-                  "name": "t127",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/excited-beautiful-you…”",
-                  "name": "i128",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i128_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Heading H4: “Linda Cooper”",
-                  "name": "t129",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “CTO”",
-                  "name": "t130",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 15: \"Stay Connected\"",
-              "name": "s_6b752dba",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “Contact Us”",
-                  "name": "t131",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “\"Stay”",
-                  "name": "t132",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Connected\"”",
-                  "name": "t133",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “\"Stay connected with our team and never miss a de…”",
-                  "name": "t134",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 16: Have a project in mind?",
-              "name": "s_b967842",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “Let's Talk”",
-                  "name": "t135",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 17: New york Office",
-              "name": "s_1bf04f3",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Heading H5: “New york Office”",
-                  "name": "t136",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “555-1234”",
-                  "name": "t137",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “info@archy .com”",
-                  "name": "t138",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “123 Main Street, Suite 200 City: Anytown State: S…”",
-                  "name": "t139",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H5: “Paris Office”",
-                  "name": "t140",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “+33 1 23 45 67 89”",
-                  "name": "t141",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “info@archyparis.com”",
-                  "name": "t142",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “123 Rue de la Paix, 75002 Paris, France”",
-                  "name": "t143",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H5: “Berlin Office”",
-                  "name": "t144",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “+49 30 12345678”",
-                  "name": "t145",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “info@archyberlin.com”",
-                  "name": "t146",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Mauerstrasse 45, 10117 Berlin, Germany”",
-                  "name": "t147",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "home",
-          "label": "Home (/home/)",
-          "file": "content/pages/home.json",
-          "format": "json",
-          "fields": [
-            {
-              "label": "Search engine (SEO)",
-              "name": "seo",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Page title",
-                  "name": "title",
-                  "widget": "string"
-                },
-                {
-                  "label": "Description",
-                  "name": "description",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 1: Transforming ideas into structures",
-              "name": "s_5312973d",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Heading H1: “Transforming ideas into structures”",
-                  "name": "t1",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Architects can conduct site analysis and evaluati…”",
-                  "name": "t2",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “Details”",
-                  "name": "t3",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Architects can conduct site analysis and evaluati…”",
-                  "name": "t4",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “Details”",
-                  "name": "t5",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H1: “Building your vision, creating reality”",
-                  "name": "t6",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Architects can conduct site analysis and evaluati…”",
-                  "name": "t7",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “Details”",
-                  "name": "t8",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Architects can conduct site analysis and evaluati…”",
-                  "name": "t9",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “Details”",
-                  "name": "t10",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H1: “Designing spaces, creating experiences”",
-                  "name": "t11",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Architects can conduct site analysis and evaluati…”",
-                  "name": "t12",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “Details”",
-                  "name": "t13",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Architects can conduct site analysis and evaluati…”",
-                  "name": "t14",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “Details”",
-                  "name": "t15",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H1: “Architecture is our passion, design is our art”",
-                  "name": "t16",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Architects offer design and planning services for…”",
-                  "name": "t17",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “Details”",
-                  "name": "t18",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Architects offer design and planning services for…”",
-                  "name": "t19",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “Details”",
-                  "name": "t20",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 2: We specialize in these fields.",
-              "name": "s_86f60c7",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “We”",
-                  "name": "t21",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “specialize”",
-                  "name": "t22",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “in”",
-                  "name": "t23",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “these”",
-                  "name": "t24",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “fields.”",
-                  "name": "t25",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “The homepage of an architecture website serves as…”",
-                  "name": "t26",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “All Services”",
-                  "name": "t27",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Feasibility Studies”",
-                  "name": "t28",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Conceptual Design”",
-                  "name": "t29",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Design Development”",
-                  "name": "t30",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Permitting and Approvals”",
-                  "name": "t31",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Construction Documents”",
-                  "name": "t32",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Bidding and Negotiation”",
-                  "name": "t33",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Construction Administration”",
-                  "name": "t34",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Post-Occupancy Evaluation”",
-                  "name": "t35",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Project Management”",
-                  "name": "t36",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Counter number (Clients Around the World): 64",
-                  "name": "n37",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H3: “Clients Around the World”",
-                  "name": "t38",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Counter number (Projects Completed): 124",
-                  "name": "n39",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H3: “Projects Completed”",
-                  "name": "t40",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Counter number (Square Feet): 244",
-                  "name": "n41",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H3: “Square Feet”",
-                  "name": "t42",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 3",
-              "name": "s_4d46a10",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “Construction”",
-                  "name": "t43",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Interior Design”",
-                  "name": "t44",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Modern Structures”",
-                  "name": "t45",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Thinking outside of the box”",
-                  "name": "t46",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Construction”",
-                  "name": "t47",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Interior Design”",
-                  "name": "t48",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Modern Structures”",
-                  "name": "t49",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Thinking outside of the box”",
-                  "name": "t50",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 4: \"Discover Our Story\"",
-              "name": "s_f84c752",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “About Us”",
-                  "name": "t51",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “\"Discover”",
-                  "name": "t52",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Our”",
-                  "name": "t53",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Story\"”",
-                  "name": "t54",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “Designing the future, today - welcome to our arch…”",
-                  "name": "t55",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 5: History",
-              "name": "s_dfdca5b",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/urban-double-exposure…”",
-                  "name": "i56",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i56_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/simone-hutsch-xlGKy9U…”",
-                  "name": "i57",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i57_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/modern-glass-skyscrap…”",
-                  "name": "i58",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i58_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/modern-glass-skyscrap…”",
-                  "name": "i59",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i59_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Text: “History”",
-                  "name": "t60",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Mission”",
-                  "name": "t61",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Vision”",
-                  "name": "t62",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Archy was founded in 1936 in Chicago, USA. The co…”",
-                  "name": "t63",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “SOM has been responsible for the design of many n…”",
-                  "name": "t64",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Throughout its history, SOM has been recognized f…”",
-                  "name": "t65",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “We believe that good design should not only be ae…”",
-                  "name": "t66",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Ratings and reviews, A numerical rating system an…”",
-                  "name": "t67",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H5: “Renovation”",
-                  "name": "t68",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H5: “Architecture”",
-                  "name": "t69",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H5: “Functional Spaces”",
-                  "name": "t70",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 6: Consultation and initial meeting",
-              "name": "s_609016b1",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “1.”",
-                  "name": "t71",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H3: “Consultation and initial meeting”",
-                  "name": "t72",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “The architecture company meets with the client to…”",
-                  "name": "t73",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “2.”",
-                  "name": "t74",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H3: “Concept design”",
-                  "name": "t75",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Based on the client's requirements, the architect…”",
-                  "name": "t76",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “3.”",
-                  "name": "t77",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H3: “Design development”",
-                  "name": "t78",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Once the client approves the concept design, the …”",
-                  "name": "t79",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “4.”",
-                  "name": "t80",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H3: “Permitting and approvals”",
-                  "name": "t81",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Before construction can begin, the architecture c…”",
-                  "name": "t82",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 7",
-              "name": "s_4cd2f9a",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/daniel-stone-A4TtfFo_…”",
-                  "name": "i83",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i83_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/vertical-shot-high-ri…”",
-                  "name": "i84",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i84_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/metal-geometric-moder…”",
-                  "name": "i85",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i85_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/messeplatz-cloudy-sky…”",
-                  "name": "i86",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i86_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/joel-filipe-PkE6yQwE-…”",
-                  "name": "i87",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i87_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/michael-demarco-oB0r-…”",
-                  "name": "i88",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i88_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/simone-hutsch-D7nSqgT…”",
-                  "name": "i89",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i89_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/simone-hutsch-xlGKy9U…”",
-                  "name": "i90",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i90_alt",
-                  "widget": "string",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 8: \"Building a legacy, one project at a ti…",
-              "name": "s_c88534f",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “Latest Projects”",
-                  "name": "t91",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “\"Building”",
-                  "name": "t92",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “a”",
-                  "name": "t93",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “legacy,”",
-                  "name": "t94",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “one”",
-                  "name": "t95",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “project”",
-                  "name": "t96",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “at”",
-                  "name": "t97",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “a”",
-                  "name": "t98",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “time\"”",
-                  "name": "t99",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “Whether you're an architect, designer, or simply …”",
-                  "name": "t100",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 9: Kwigira Women and Children Center",
-              "name": "s_c61ae90",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “Kwigira”",
-                  "name": "t101",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Pre-Engineered”",
-                  "name": "t102",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Rural”",
-                  "name": "t103",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2025/03/01_3-Photo-min-300x16…”",
-                  "name": "i104",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i104_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Rural”",
-                  "name": "t105",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Rural One-Stop Community Hub with Shopping, Sport…”",
-                  "name": "t106",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 10: Latest News",
-              "name": "s_fbc33a6",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “Latest News”",
-                  "name": "t107",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Latest”",
-                  "name": "t108",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “News”",
-                  "name": "t109",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “\"Our team is comprised of experienced architects,…”",
-                  "name": "t110",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 11: ELEVAR Group: Community-Driven Architec…",
-              "name": "s_b29e53e",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Image: “/wp-content/uploads/2025/03/01_3-Photo-min-1300x6…”",
-                  "name": "i111",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i111_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “April 25, 2025”",
-                  "name": "t112",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “News”",
-                  "name": "t113",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Link text: “ELEVAR Group: Community-Driven Architecture”",
-                  "name": "t114",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 12: \"Meet the team behind the designs\"",
-              "name": "s_d65b2c6",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “\"Meet”",
-                  "name": "t115",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “the”",
-                  "name": "t116",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “team”",
-                  "name": "t117",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “behind”",
-                  "name": "t118",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “the”",
-                  "name": "t119",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “designs\"”",
-                  "name": "t120",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “\"Our team is comprised of experienced architects,…”",
-                  "name": "t121",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 13: Alisson Taylor",
-              "name": "s_47f7b1c",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/travel-agent-hearing-…”",
-                  "name": "i122",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i122_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Heading H4: “Alisson Taylor”",
-                  "name": "t123",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Team Manager”",
-                  "name": "t124",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/handsome-mature-busin…”",
-                  "name": "i125",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i125_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Heading H4: “Roger Craig”",
-                  "name": "t126",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “CEO”",
-                  "name": "t127",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Image: “/wp-content/uploads/2023/05/excited-beautiful-you…”",
-                  "name": "i128",
-                  "widget": "image",
-                  "required": false,
-                  "choose_url": true
-                },
-                {
-                  "label": "↳ Alt text",
-                  "name": "i128_alt",
-                  "widget": "string",
-                  "required": false
-                },
-                {
-                  "label": "Heading H4: “Linda Cooper”",
-                  "name": "t129",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “CTO”",
-                  "name": "t130",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 14: \"Stay Connected\"",
-              "name": "s_e299a46",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “Contact Us”",
-                  "name": "t131",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “\"Stay”",
-                  "name": "t132",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Connected\"”",
-                  "name": "t133",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H2: “\"Stay connected with our team and never miss a de…”",
-                  "name": "t134",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 15: Have a project in mind?",
-              "name": "s_6c2f5ce",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Text: “Let's Talk”",
-                  "name": "t135",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            },
-            {
-              "label": "Section 16: New york Office",
-              "name": "s_4abcb11",
-              "widget": "object",
-              "collapsed": true,
-              "fields": [
-                {
-                  "label": "Heading H5: “New york Office”",
-                  "name": "t136",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “555-1234”",
-                  "name": "t137",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “info@archy .com”",
-                  "name": "t138",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “123 Main Street, Suite 200 City: Anytown State: S…”",
-                  "name": "t139",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H5: “Paris Office”",
-                  "name": "t140",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “+33 1 23 45 67 89”",
-                  "name": "t141",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “info@archyparis.com”",
-                  "name": "t142",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “123 Rue de la Paix, 75002 Paris, France”",
-                  "name": "t143",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Heading H5: “Berlin Office”",
-                  "name": "t144",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “+49 30 12345678”",
-                  "name": "t145",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “info@archyberlin.com”",
-                  "name": "t146",
-                  "widget": "text",
-                  "required": false
-                },
-                {
-                  "label": "Text: “Mauerstrasse 45, 10117 Berlin, Germany”",
-                  "name": "t147",
-                  "widget": "text",
-                  "required": false
-                }
-              ]
-            }
-          ]
-        },
-        {
           "name": "news",
           "label": "News (/news/)",
           "file": "content/pages/news.json",
           "format": "json",
           "fields": [
             {
-              "label": "Search engine (SEO)",
+              "label": "Search engine (SEO): Google title & description",
               "name": "seo",
               "widget": "object",
               "collapsed": true,
@@ -4801,13 +2391,15 @@
                 {
                   "label": "Page title",
                   "name": "title",
-                  "widget": "string"
+                  "widget": "string",
+                  "hint": "Shown as the blue link in Google. Aim for 50-60 characters."
                 },
                 {
                   "label": "Description",
                   "name": "description",
                   "widget": "text",
-                  "required": false
+                  "required": false,
+                  "hint": "Shown under the link in Google. Aim for 140-160 characters."
                 }
               ]
             },
@@ -4924,7 +2516,7 @@
           "format": "json",
           "fields": [
             {
-              "label": "Search engine (SEO)",
+              "label": "Search engine (SEO): Google title & description",
               "name": "seo",
               "widget": "object",
               "collapsed": true,
@@ -4932,13 +2524,15 @@
                 {
                   "label": "Page title",
                   "name": "title",
-                  "widget": "string"
+                  "widget": "string",
+                  "hint": "Shown as the blue link in Google. Aim for 50-60 characters."
                 },
                 {
                   "label": "Description",
                   "name": "description",
                   "widget": "text",
-                  "required": false
+                  "required": false,
+                  "hint": "Shown under the link in Google. Aim for 140-160 characters."
                 }
               ]
             },
@@ -5073,7 +2667,7 @@
           "format": "json",
           "fields": [
             {
-              "label": "Search engine (SEO)",
+              "label": "Search engine (SEO): Google title & description",
               "name": "seo",
               "widget": "object",
               "collapsed": true,
@@ -5081,13 +2675,15 @@
                 {
                   "label": "Page title",
                   "name": "title",
-                  "widget": "string"
+                  "widget": "string",
+                  "hint": "Shown as the blue link in Google. Aim for 50-60 characters."
                 },
                 {
                   "label": "Description",
                   "name": "description",
                   "widget": "text",
-                  "required": false
+                  "required": false,
+                  "hint": "Shown under the link in Google. Aim for 140-160 characters."
                 }
               ]
             },
@@ -5725,7 +3321,7 @@
           "format": "json",
           "fields": [
             {
-              "label": "Search engine (SEO)",
+              "label": "Search engine (SEO): Google title & description",
               "name": "seo",
               "widget": "object",
               "collapsed": true,
@@ -5733,13 +3329,15 @@
                 {
                   "label": "Page title",
                   "name": "title",
-                  "widget": "string"
+                  "widget": "string",
+                  "hint": "Shown as the blue link in Google. Aim for 50-60 characters."
                 },
                 {
                   "label": "Description",
                   "name": "description",
                   "widget": "text",
-                  "required": false
+                  "required": false,
+                  "hint": "Shown under the link in Google. Aim for 140-160 characters."
                 }
               ]
             },
@@ -6159,7 +3757,7 @@
           "format": "json",
           "fields": [
             {
-              "label": "Search engine (SEO)",
+              "label": "Search engine (SEO): Google title & description",
               "name": "seo",
               "widget": "object",
               "collapsed": true,
@@ -6167,13 +3765,15 @@
                 {
                   "label": "Page title",
                   "name": "title",
-                  "widget": "string"
+                  "widget": "string",
+                  "hint": "Shown as the blue link in Google. Aim for 50-60 characters."
                 },
                 {
                   "label": "Description",
                   "name": "description",
                   "widget": "text",
-                  "required": false
+                  "required": false,
+                  "hint": "Shown under the link in Google. Aim for 140-160 characters."
                 }
               ]
             },
@@ -6660,7 +4260,7 @@
           "format": "json",
           "fields": [
             {
-              "label": "Search engine (SEO)",
+              "label": "Search engine (SEO): Google title & description",
               "name": "seo",
               "widget": "object",
               "collapsed": true,
@@ -6668,13 +4268,15 @@
                 {
                   "label": "Page title",
                   "name": "title",
-                  "widget": "string"
+                  "widget": "string",
+                  "hint": "Shown as the blue link in Google. Aim for 50-60 characters."
                 },
                 {
                   "label": "Description",
                   "name": "description",
                   "widget": "text",
-                  "required": false
+                  "required": false,
+                  "hint": "Shown under the link in Google. Aim for 140-160 characters."
                 }
               ]
             },
@@ -7330,6 +4932,121 @@
                   "required": false
                 }
               ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "business",
+      "label": "Business details (SEO)",
+      "editor": {
+        "preview": false
+      },
+      "files": [
+        {
+          "name": "business",
+          "label": "Business details for Google",
+          "file": "content/business.json",
+          "format": "json",
+          "description": "Used in Google's business data on every page (name, contact, address, services).",
+          "fields": [
+            {
+              "label": "Company name",
+              "name": "name",
+              "widget": "string"
+            },
+            {
+              "label": "Short name",
+              "name": "alternate_name",
+              "widget": "string",
+              "required": false
+            },
+            {
+              "label": "Slogan",
+              "name": "slogan",
+              "widget": "string",
+              "required": false
+            },
+            {
+              "label": "Description",
+              "name": "description",
+              "widget": "text"
+            },
+            {
+              "label": "Phone (international format)",
+              "name": "phone",
+              "widget": "string",
+              "hint": "e.g. +250788351457"
+            },
+            {
+              "label": "Email",
+              "name": "email",
+              "widget": "string"
+            },
+            {
+              "label": "Street / area",
+              "name": "street",
+              "widget": "string",
+              "required": false
+            },
+            {
+              "label": "City",
+              "name": "city",
+              "widget": "string"
+            },
+            {
+              "label": "District / region",
+              "name": "region",
+              "widget": "string",
+              "required": false
+            },
+            {
+              "label": "Country code",
+              "name": "country",
+              "widget": "string",
+              "hint": "Two letters, e.g. RW"
+            },
+            {
+              "label": "Area served",
+              "name": "area_served",
+              "widget": "string",
+              "required": false
+            },
+            {
+              "label": "Logo",
+              "name": "logo",
+              "widget": "image",
+              "choose_url": true
+            },
+            {
+              "label": "Main image",
+              "name": "image",
+              "widget": "image",
+              "choose_url": true,
+              "required": false
+            },
+            {
+              "label": "Services",
+              "name": "services",
+              "widget": "list",
+              "field": {
+                "label": "Service",
+                "name": "service",
+                "widget": "string"
+              }
+            },
+            {
+              "label": "Social media links",
+              "name": "social_links",
+              "widget": "list",
+              "required": false,
+              "hint": "Full URLs of your LinkedIn, Instagram, Facebook… pages",
+              "field": {
+                "label": "URL",
+                "name": "url",
+                "widget": "string"
+              }
             }
           ]
         }

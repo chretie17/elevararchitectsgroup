@@ -27,6 +27,86 @@ await fs.cp(SITE, DIST, { recursive: true });
 await fs.cp(ADMIN, path.join(DIST, "admin"), { recursive: true });
 
 const globalVals = flatten(await readJson(path.join(CONTENT, "global.json")));
+const business = await readJson(path.join(CONTENT, "business.json"));
+
+// ---- structured data (schema.org JSON-LD for Google) -----------------------
+const SITE_URL = "https://elevararchitectsgroup.com";
+const ORG_ID = `${SITE_URL}/#organization`;
+const abs = (u) => (u && u.startsWith("/") ? SITE_URL + u : u);
+
+function organizationNode() {
+  const b = business;
+  const node = {
+    "@type": "ProfessionalService",
+    "@id": ORG_ID,
+    name: b.name,
+    alternateName: b.alternate_name || undefined,
+    url: `${SITE_URL}/`,
+    slogan: b.slogan || undefined,
+    description: b.description || undefined,
+    logo: b.logo ? { "@type": "ImageObject", "@id": `${SITE_URL}/#logo`, url: abs(b.logo), caption: b.name } : undefined,
+    image: b.image ? abs(b.image) : undefined,
+    telephone: b.phone || undefined,
+    email: b.email || undefined,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: b.street || undefined,
+      addressLocality: b.city || undefined,
+      addressRegion: b.region || undefined,
+      addressCountry: b.country || undefined,
+    },
+    areaServed: b.area_served ? { "@type": "Country", name: b.area_served } : undefined,
+    knowsAbout: b.services?.length ? b.services : undefined,
+    hasOfferCatalog: b.services?.length ? {
+      "@type": "OfferCatalog",
+      name: "Architecture and engineering services",
+      itemListElement: b.services.map((s) => ({ "@type": "Offer", itemOffered: { "@type": "Service", name: s } })),
+    } : undefined,
+    contactPoint: b.phone ? [{ "@type": "ContactPoint", telephone: b.phone, email: b.email || undefined, contactType: "customer service", areaServed: "RW", availableLanguage: ["en", "rw", "fr"] }] : undefined,
+    sameAs: (b.social_links || []).filter(Boolean).length ? b.social_links.filter(Boolean) : undefined,
+  };
+  return JSON.parse(JSON.stringify(node)); // drops undefined
+}
+
+// Adds the business to Yoast's JSON-LD graph, fixes the site name and keeps
+// page name/description in sync with the SEO fields.
+function patchSchema(root, seo) {
+  if (!business.name) return false;
+  let touched = false;
+  for (const s of root.querySelectorAll('script[type="application/ld+json"]')) {
+    let data;
+    try { data = JSON.parse(s.text); } catch { continue; }
+    const graph = data["@graph"];
+    if (!Array.isArray(graph)) continue;
+    const types = (n) => [].concat(n["@type"] || []);
+    for (const n of graph) {
+      if (types(n).includes("WebSite")) {
+        n.name = business.name;
+        if (business.alternate_name) n.alternateName = business.alternate_name;
+        n.description = business.description || n.description;
+        n.publisher = { "@id": ORG_ID };
+      }
+      if (types(n).some((t) => /Page$/.test(t)) && n["@id"] && !/#/.test(n["@id"].replace(/#webpage$/, ""))) {
+        if (seo.title) n.name = seo.title;
+        if (seo.description) n.description = seo.description;
+        n.publisher = { "@id": ORG_ID };
+      }
+      if (types(n).some((t) => /Article|BlogPosting/.test(t))) {
+        n.publisher = { "@id": ORG_ID };
+        n.author = { "@id": ORG_ID }; // the WordPress author was a login email
+      }
+    }
+    // drop WordPress user nodes (named after an email address)
+    for (let j = graph.length - 1; j >= 0; j--) {
+      if (types(graph[j]).includes("Person") && /@/.test(graph[j].name || "")) graph.splice(j, 1);
+    }
+    const i = graph.findIndex((n) => n["@id"] === ORG_ID);
+    if (i >= 0) graph[i] = organizationNode(); else graph.push(organizationNode());
+    s.set_content(JSON.stringify(data));
+    touched = true;
+  }
+  return touched;
+}
 let pagesChanged = 0, fieldsChanged = 0;
 
 for (const file of await listHtml(DIST)) {
@@ -72,9 +152,13 @@ for (const file of await listHtml(DIST)) {
   if (typeof seo.description === "string" && seo.description !== (descEl?.getAttribute("content") || "")) {
     if (descEl) descEl.setAttribute("content", seo.description);
     else root.querySelector("head")?.insertAdjacentHTML("beforeend", `<meta name="description" content="${escAttr(seo.description)}" />`);
-    for (const m of root.querySelectorAll('meta[property="og:description"], meta[name="twitter:description"]')) m.setAttribute("content", seo.description);
+    const og = root.querySelectorAll('meta[property="og:description"], meta[name="twitter:description"]');
+    for (const m of og) m.setAttribute("content", seo.description);
+    if (!og.length) root.querySelector('meta[property="og:title"]')?.insertAdjacentHTML("afterend", `<meta property="og:description" content="${escAttr(seo.description)}" />`);
     changed++;
   }
+
+  if (patchSchema(root, seo)) changed++;
 
   let out = changed ? root.toString() : raw;
   out = out.replace(/\sdata-cms(?:-h)?="[^"]*"/g, "");
