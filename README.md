@@ -1,33 +1,43 @@
 # Elevar Architects Group – website
 
 Static copy of the former WordPress site (Hostinger), hosted on **Netlify**, with an
-editor at **`/admin`** (Decap CMS) for changing text and images.
+visual editor at **`/admin`** for changing text, photos and SEO.
 
 ## How it works
 
 ```
 site/       exported HTML, CSS, JS and images (the design; don't edit by hand)
 content/    the editable text/images, one JSON file per page + global.json (header/footer)
-admin/      the /admin editor (Decap CMS) and its generated field list (config.yml)
+admin/      the /admin dashboard and its generated field list (config.yml)
+netlify/    serverless functions behind the dashboard (login, read, publish)
 scripts/    export-static.mjs, extract-content.mjs, build.mjs
 ```
 
-When someone saves in `/admin`, Decap commits the change to `content/` in GitHub.
+When someone publishes in `/admin`, the dashboard commits the change to `content/` in GitHub.
 Netlify sees the commit, runs `npm run build` (copies `site/` to `dist/` and puts the
 new text/images in), and publishes `dist/`. Changes are live in about a minute.
 
-## Signing in to /admin
+## The dashboard (/admin)
 
-`/admin` uses a password instead of GitHub accounts. Click **Login with GitHub**;
-a small window asks for the password (handled by `netlify/functions/auth.mjs`).
+Open `/admin`, sign in with the password, pick a page, click any text, photo or
+number on it, edit it in the side panel, then press **Publish**. Changes are live
+in about a minute (the dashboard tells you when).
 
-Set these in Netlify → Site configuration → Environment variables, then redeploy:
+- Photo library: all site photos; uploads are resized in the browser and stored in
+  `site/wp-content/uploads/cms/`.
+- Google title/description per page, with a live Google preview.
+- Business details: company info, services and social links used for Google.
 
-- `ADMIN_PASSWORD`: the password you type at /admin (use a long one)
-- `GITHUB_TOKEN`: a fine-grained GitHub token for this repo only, with
-  **Contents: Read and write**. The CMS uses it to save your edits.
+How it works: `netlify/functions/` (login, content, save) read and commit
+`content/*.json` and photos through the GitHub API. The GitHub token never
+reaches the browser; the browser only gets a signed, HttpOnly session cookie.
+The build writes click-to-edit copies of each page to `dist/admin/edit/`, the
+photo list to `dist/admin/media.json` and the deployed commit to `dist/admin/build.json`.
 
-To change the password, edit `ADMIN_PASSWORD` and redeploy.
+Netlify → Site configuration → Environment variables (then redeploy):
+
+- `ADMIN_PASSWORD`: the dashboard password. Changing it signs everyone out.
+- `GITHUB_TOKEN`: fine-grained token for this repo only, **Contents: Read and write**.
 
 ## What can be edited in /admin
 

@@ -181,13 +181,12 @@ function fieldDef(name, kind, label) {
 
 // ---- generate the CMS config ----------------------------------------------
 
-const pageLabel = (p) => (p.slug === "homepage" ? "Home page" : p.title.replace(/\s*[-–|]\s*Elevar Architects Group Ltd\s*$/i, "")) + ` (/${p.rel.replace(/index\.html$/, "")})`;
+const pageLabel = (p) => (p.slug === "homepage" ? "Home page" : p.title.replace(/\s*[-–|]\s*Elevar Architects Group Ltd\s*$/i, ""));
 const order = (p) => (p.slug === "homepage" ? 0 : p.rel.startsWith("portfolio/") ? 2 : 1);
 pages.sort((a, b) => order(a) - order(b) || a.rel.localeCompare(b.rel));
 
 const config = {
   backend: { name: "github", repo: "chretie17/elevararchitectsgroup", branch: "main" },
-  local_backend: true, // only active on localhost (npm run cms)
   site_url: "https://elevararchitectsgroup.com",
   display_url: "https://elevararchitectsgroup.com",
   logo_url: "/wp-content/uploads/2025/12/elevar_1-05-scaled-e1764947847136-1075x500.png",
@@ -197,7 +196,7 @@ const config = {
     {
       name: "pages", label: "Pages", editor: { preview: false },
       files: pages.map((p) => ({
-        name: p.slug, label: pageLabel(p), file: `content/pages/${p.slug}.json`, format: "json",
+        name: p.slug, label: pageLabel(p), url: "/" + p.rel.replace(/index\.html$/, ""), file: `content/pages/${p.slug}.json`, format: "json",
         fields: [
           { label: "Search engine (SEO)", name: "seo", widget: "object", collapsed: true, fields: [
             { label: "Page title", name: "title", widget: "string" },

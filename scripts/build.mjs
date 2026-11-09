@@ -160,10 +160,48 @@ for (const file of await listHtml(DIST)) {
 
   if (patchSchema(root, seo)) changed++;
 
-  let out = changed ? root.toString() : raw;
-  out = out.replace(/\sdata-cms(?:-h)?="[^"]*"/g, "");
-  await fs.writeFile(file, out);
+  const tagged = changed ? root.toString() : raw;
+  await fs.writeFile(file, tagged.replace(/\sdata-cms(?:-h)?="[^"]*"/g, ""));
+  // Dashboard copy: same page, but keeps the data-cms tags so it can be clicked to edit.
+  if (isEditablePage(rel)) {
+    const editFile = path.join(DIST, "admin", "edit", ...rel.split("/"));
+    await fs.mkdir(path.dirname(editFile), { recursive: true });
+    await fs.writeFile(editFile, tagged);
+  }
   if (changed) { pagesChanged++; fieldsChanged += changed; }
 }
+
+// ---- dashboard data ---------------------------------------------------------
+
+// Photo library: every image in site/wp-content/uploads, one entry per photo
+// (WordPress resized copies like -300x200 are grouped under their original).
+async function buildMediaLibrary() {
+  const uploads = path.join(SITE, "wp-content", "uploads");
+  const SIZE = /-(\d+)x(\d+)(?=\.[a-z0-9]+$)/i;
+  const groups = new Map();
+  for (const e of await fs.readdir(uploads, { recursive: true, withFileTypes: true })) {
+    if (!e.isFile() || !/\.(jpe?g|png|webp|gif|svg)$/i.test(e.name)) continue;
+    const full = path.join(e.parentPath ?? e.path, e.name);
+    const url = "/" + path.relative(SITE, full).split(path.sep).join("/");
+    if (/\/uploads\/elementor\//.test(url)) continue;
+    const m = SIZE.exec(url);
+    const base = url.replace(SIZE, "");
+    const g = groups.get(base) || { base, sizes: [] };
+    g.sizes.push({ url, w: m ? +m[1] : Infinity });
+    groups.set(base, g);
+  }
+  const items = [...groups.values()].map((g) => {
+    g.sizes.sort((a, b) => a.w - b.w);
+    const largest = g.sizes[g.sizes.length - 1];
+    const thumb = g.sizes.find((s) => s.w >= 300 && s.w !== Infinity) || g.sizes.find((s) => s.w !== Infinity && s.w >= 150) || largest;
+    const name = path.posix.basename(g.base).replace(/\.[^.]+$/, "").replace(/[-_]+/g, " ");
+    return { name, src: largest.url, thumb: thumb.url, sizes: g.sizes.map((s) => s.url) };
+  });
+  items.sort((a, b) => b.src.localeCompare(a.src)); // newest folders first
+  return items;
+}
+
+await fs.writeFile(path.join(DIST, "admin", "media.json"), JSON.stringify(await buildMediaLibrary()));
+await fs.writeFile(path.join(DIST, "admin", "build.json"), JSON.stringify({ commit: process.env.COMMIT_REF || null, built: new Date().toISOString() }));
 
 console.log(`Built dist/: ${fieldsChanged} edited field(s) applied across ${pagesChanged} page(s).`);
