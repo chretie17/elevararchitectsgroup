@@ -5,9 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="robots" content="noindex, nofollow" />
   <title>Elevar – Content Manager</title>
+  <script>window.CMS_MANUAL_INIT = true;</script>
 </head>
 <body>
   <!-- Decap CMS: edits content/*.json in the GitHub repo; Netlify rebuilds on each save. -->
   <script src="https://unpkg.com/decap-cms@3.17.1/dist/decap-cms.js"></script>
+  <script>
+    // Sign in with the password login at /api/auth (netlify/functions/auth.mjs)
+    // on whichever domain /admin is opened from.
+    CMS.init({
+      config: {
+        backend: { base_url: window.location.origin, auth_endpoint: "api/auth" },
+      },
+    });
+  </script>
 </body>
 </html>
