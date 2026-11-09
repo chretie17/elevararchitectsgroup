@@ -1,0 +1,19 @@
+{
+  "name": "elevararchitectsgroup",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "export": "node scripts/export-static.mjs",
+    "extract": "node scripts/extract-content.mjs",
+    "serve": "npx --yes serve@14.2.4 dist",
+    "cms": "npx --yes decap-server@3.11.5"
+  },
+  "dependencies": {
+    "marked": "16.4.1",
+    "node-html-parser": "7.0.1"
+  },
+  "devDependencies": {
+    "turndown": "7.2.1"
+  }
+}

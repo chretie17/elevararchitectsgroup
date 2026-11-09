@@ -1,0 +1,30 @@
+/*
+Theme Name:        Archy
+Text Domain:       archy
+Version:           2.1.3
+Description:       Architecture WordPress Theme
+Requires at least: 6.2
+Requires PHP:      7.0
+Tags:              portfolio
+Author:            Pixelwars
+Author URI:        https://themeforest.net/user/pixelwars
+Theme URI:         https://themeforest.net/user/pixelwars/portfolio
+License:           ThemeForest License
+License URI:       https://themeforest.net/licenses
+Domain Path:       /languages
+*/
+
+
+/*
+    Do not remove any of the commented text above as it is used by the theme for proper function!
+*/
+
+
+/* Plugin: "Top 10 - Popular Posts" */
+
+.tptn_counter {
+	display: none;
+}
+
+/* Plugin: "Top 10 - Popular Posts" */
+

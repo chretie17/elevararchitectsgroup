@@ -1,0 +1,102 @@
+/*
+	pixelwars-core-admin.css
+*/
+
+
+/* Dashboard Widget */
+
+.pixelwars-core--dashboard-widget {
+	padding-left: 10px;
+    padding-right: 10px;
+}
+
+.pixelwars-core--dashboard-widget--logo-wrapper {
+	text-align: center;
+	margin-bottom: 0px;
+}
+
+.pixelwars-core--dashboard-widget--logo-wrapper img {
+	max-width: 64px;
+}
+
+.pixelwars-core--dashboard-widget--title {
+	padding-top: 0px !important;
+	font-weight: 500 !important;
+	text-align: center;
+	color: #3c434a;
+}
+
+.pixelwars-core--dashboard-widget--image-wrapper a {
+	display: inline-block;
+}
+
+.pixelwars-core--dashboard-widget--image-wrapper a:focus {
+	box-shadow: none;
+	outline: none;
+}
+
+.pixelwars-core--dashboard-widget--button-wrapper {
+	text-align: center;
+}
+
+.pixelwars-core--dashboard-widget--support-title {
+	font-weight: 500 !important;
+}
+
+/* Dashboard Widget */
+
+
+.pixelwars-core--widget-table {
+	width: 100%;
+}
+
+.pixelwars-core--widget-table-td-left {
+	vertical-align: top;
+}
+
+.pixelwars-core--widget-table label {
+	line-height: 1 !important;
+}
+
+.pixelwars-core--widget-table small {
+	font-size: 11px;
+	color: #666666;
+}
+
+.pixelwars-core-widget-preview-image {
+	display: block;
+	margin-top: 5px;
+    margin-left: auto;
+    margin-right: auto;
+	max-width: 100%;
+}
+
+
+body.post-type-portfolio .editor-post-format select option[value="aside"],
+body.post-type-portfolio .editor-post-format select option[value="chat"],
+body.post-type-portfolio .editor-post-format select option[value="quote"],
+body.post-type-portfolio .editor-post-format select option[value="status"] { 
+    display: none;
+}
+
+
+.pixelwars-core--meta-box input[type=text],
+.pixelwars-core--meta-box select {
+	display: block;
+	font-size: 12px;
+	margin: 0px;
+	min-height: 25px;
+	width: -moz-available;
+	width: -webkit-fill-available;
+}
+
+.pixelwars-core--meta-box select:hover {
+	color: #2c3338;
+}
+
+.pixelwars-core--meta-box .howto {
+	font-size: 11px;
+	color: #757575;
+	margin-bottom: 10px;
+}
+

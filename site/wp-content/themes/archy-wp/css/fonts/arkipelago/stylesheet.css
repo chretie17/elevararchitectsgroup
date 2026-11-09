@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Arkipelago';
+    src: url('Arkipelago.woff2') format('woff2'),
+        url('Arkipelago.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+

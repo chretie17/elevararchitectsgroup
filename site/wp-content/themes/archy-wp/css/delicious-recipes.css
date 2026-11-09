@@ -1,0 +1,194 @@
+
+/* DELICIOUS RECIPES */
+/* url: https://wpdelicious.com */
+
+/* login modal */
+.dr-form-wrapper label {
+    display: block !important;
+	}
+/* single recipe post */
+.site-main .single-recipe .dr-entry-header {
+    margin-bottom: 30px;
+	}
+.dr-share-wrap .dr-share-content a img {
+    display: inline-block;
+	}
+.dr-inst-mark-read label {
+	display: inline-block; 
+	}
+.dr-nutrition-facts .dr-title {
+	color: inherit !important; font-size: 160% !important; margin: 0 !important;
+	}
+.dr-tags .dr-meta-title, .dr-tags a {
+	font-size: 1em;
+	}
+/* Recipe Prev/next post navigation */
+.single-recipe .nav-links > div {
+	display: inline-block; width: 48%;
+	}
+.single-recipe .post-navigation article .dr-recipe-title {
+	font-size: 1.6em; line-height: 1.1;	
+	}
+.single-recipe .post-navigation article .dr-recipe-fig {
+	max-width: 160px; width: 44%;
+	}
+.single-recipe .nav-links .nav-previous .meta-nav svg,
+.single-recipe .nav-links .meta-nav svg {
+    top: 2px;
+    }
+.post-navigation article .dr-recipe-details {
+	display: flex; flex-direction: column; justify-content: center;
+	}
+.single-recipe .comment-form p.form-submit input[type=submit] {
+	color: #fff;
+	}
+
+/* SEARCH RESULTS */
+.search-results .type-recipe .entry-content {
+    display: none;
+	}
+
+
+
+
+.content-area:not(.with-sidebar) + #sidebar {
+	display: none;
+	}
+/* RECIPES SEARCH */
+.dr-advance-search .advance-search-options .container {
+	margin-left: auto; margin-right: auto; max-width: 90%;
+	}
+@media (min-width: 1200px) {
+    .container {
+	    width: 1200px;
+	    }
+    .recipe-archive .content-area {
+        margin-left: -20px;margin-right: -20px;
+        }
+}
+.dr-advance-search .page-header .container {
+	width: 90%;
+	}
+@media screen and (min-width: 992px) {
+	.dr-advance-search .advance-search-options .advance-search-block {
+		min-width: 240px; max-width: 240px;
+		}
+}
+.dr-advance-search .advance-search-options .advance-search-title {
+	margin-bottom: 6px; padding-left: 22px;
+	}
+.dr-advance-search .page-header .search-form {
+	border-radius: 36px; box-shadow: 0 4px 46px rgba(var(--black-color-rgb),.07);
+	}
+.dr-advance-search .page-header .search-form .search-submit {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' class='ionicon' viewBox='0 0 512 512'%3e%3ctitle%3eSearch%3c/title%3e%3cpath d='M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z' fill='none' stroke='currentColor' stroke-miterlimit='10' stroke-width='32'/%3e%3cpath fill='none' stroke='currentColor' stroke-linecap='round' stroke-miterlimit='10' stroke-width='32' d='M338.29 338.29L448 448'/%3e%3c/svg%3e");
+}
+.dr-advance-search .page-header .search-form .search-field {
+	max-width: 100%; font-size: 1.22rem;
+	}
+.dr-advance-search .advance-search-options {
+	background: #f5f5e4; border: 0;
+	}
+.advance-search-field .select2-container {
+	background: #fff; border: 0; border-radius: 14px; overflow: hidden;
+	}
+.advance-search-field .select2-container .select2-search--inline .select2-search__field {
+	font-size: 1rem;
+	}
+.advance-search-field .select2-container--default .select2-selection--multiple .select2-selection__rendered, .advance-search-field .select2-container--default .select2-selection--single .select2-selection__rendered {
+	font-size: 1rem; padding: 0 22px;
+	}
+.advance-search-field .select2-container--default .select2-selection--single .select2-selection__rendered {
+	font-size: 1.1em;
+	}
+.select2-results__options li {
+	font-size: 1em;
+	}
+.select2-container--default .select2-results>.select2-results__options {
+	padding: 12px 20px; border: 0;
+	}
+.select2-container--open .select2-dropdown--below {
+	border-radius: 12px; border: 0; box-shadow: 0 1px 10px #00000029;
+	}
+.select2-container--default .select2-search--dropdown .select2-search__field {
+	border-radius: 10px;
+	}
+.dr-advance-search .advance-search-options #dr-recipes-clear-filters {
+	width: 100%; text-align: center; font-size: 14px; text-transform: uppercase; border-radius: 16px; transition: all .3s;
+	}
+
+
+/* RECIPE POST */
+.dr-summary-holder .dr-keywords {
+	font-size: .925rem;
+	}
+.dr-entry-content ol>li, .dr-entry-content ul>li {
+	line-height: inherit;
+	}
+.dr-note ol li, .dr-note ul li {
+	margin-bottom: 4px;
+	}
+.dr-entry-content ol>li, .dr-entry-content ul>li {
+	line-height: inherit;
+	}
+body .dr-nutrition-label dt {
+	display: block; text-transform: none; letter-spacing: 0;
+	}
+body .dr-nutrition-label strong {
+	font-weight: 600;
+	}
+body .dr-nutrition-label p.dr-daily-value-text {
+	clear: left;
+	}
+body .dr-nutrition-label strong.dr-nut-heading {
+	font-size: .9rem; text-transform: uppercase; letter-spacing: 1px;font-weight: 400;
+	}
+body .dr-nutrition-label dt, body .dr-nutrition-label dl.dr-nut-bottom dt {
+	border-color: #0000001c;
+	}
+
+/* RECIPE ARCHIVE */
+body.archive > #page .page-header .container {
+	width: 90%; max-width: 1200px; padding: 0; margin: 0 auto;
+	}
+body.archive > #page  .page-header {
+	background: #f5f5e4; padding: 4% 0; font-size: 0;
+	}
+body.archive > #page  .page-header span:not(.dr-showing-results) {
+	font-size: 2.2rem;
+	}
+body.archive > #page  .page-header .archive-description {
+	font-size: 1rem;
+	}
+body.archive > #page  .page-header .dr-showing-results {
+	font-size: 1rem;
+	}
+.recipe-archive {
+	width: 90%;
+	}
+.recipe-archive #secondary {
+	display: none;
+	}
+.dr-archive-single .dr-recipe-wishlist {
+    zoom: 1.4;
+    }
+#primary .entry-content .dr-archive-details .dr-archive-list-title, 
+.dr-archive-details .dr-archive-list-title {
+    font-size: 1.36em; line-height: 1.2; letter-spacing: -0.02em;
+    }
+@media screen and (max-width: 767px) {
+	.dr-archive-single {
+		width: 50%; padding-left: 5px; padding-right: 5px;
+		}
+	.dr-archive-list-gridwrap, .dr-gb-block-wrap {
+		display: flex; margin-left: -5px; margin-right: -5px;
+		}
+}
+.dr-archive-pagination .dr__pagination .page-numbers {
+    font-family: inherit !important; text-transform: uppercase;
+    }
+
+/* widget: favourite recipes */
+ul.dr-favorite-recipe li {
+    margin-bottom: 2rem;
+    }
