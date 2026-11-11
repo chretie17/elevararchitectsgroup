@@ -8,6 +8,7 @@ import { parse } from "node-html-parser";
 import { marked } from "marked";
 import { SITE, CONTENT, DIST, ADMIN, PARSE_OPTS, hash, pageSlug, isEditablePage, listHtml } from "./lib.mjs";
 import * as C from "../admin/collections.js";
+import { injectIntro } from "./intro.mjs";
 
 const readJson = async (f) => { try { return JSON.parse(await fs.readFile(f, "utf8")); } catch { return {}; } };
 
@@ -282,6 +283,20 @@ async function rewriteSitemap(file, items, toPath, isItemLoc) {
 }
 await rewriteSitemap("portfolio-sitemap.xml", projects, C.projectPath, (loc) => /\/portfolio\/[^/]+\/$/.test(loc));
 await rewriteSitemap("post-sitemap.xml", news, C.postPath, (loc) => loc !== SITE_URL + "/news/" && loc !== SITE_URL + "/");
+
+// ---- opening screen on every public page (not the dashboard) ----------------
+{
+  const intro = { enabled: business.intro?.enabled !== false, tagline: business.intro?.tagline ?? String(business.slogan || "Architecture That Elevates").replace(/.$/, "") };
+  let n = 0;
+  for (const file of await listHtml(DIST)) {
+    const rel = path.relative(DIST, file).split(path.sep).join("/");
+    if (rel.startsWith("admin/")) continue;
+    const html = await fs.readFile(file, "utf8");
+    const out = injectIntro(html, intro);
+    if (out !== html) { await fs.writeFile(file, out); n++; }
+  }
+  console.log(`Opening screen: ${intro.enabled ? "on" : "off"} (${n} pages)`);
+}
 
 // ---- dashboard data ---------------------------------------------------------
 

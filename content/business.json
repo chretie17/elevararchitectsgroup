@@ -23,5 +23,9 @@
     "Post-Occupancy Evaluation",
     "Preliminary Studies & Stakeholder Engagement"
   ],
-  "social_links": []
+  "social_links": [],
+  "intro": {
+    "enabled": true,
+    "tagline": "Architecture That Elevates"
+  }
 }

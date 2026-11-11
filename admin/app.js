@@ -703,7 +703,8 @@ async function renderBusiness() {
       h("button", { class: "btn small", style: "margin-bottom:20px", onclick: () => go("services") }, icon("briefcase", 15), "Manage services")),
     h("div", { class: "card" }, h("h3", {}, "Social media & images"), h("p", {}, "Links to your profiles help Google connect them to your website."),
       list("social_links", "Profile links", "https://www.linkedin.com/company/…", "Full addresses of your LinkedIn, Instagram, Facebook or other pages."),
-      h("div", { class: "two" }, photo("logo", "Logo"), photo("image", "Main photo"))))));
+      h("div", { class: "two" }, photo("logo", "Logo"), photo("image", "Main photo"))),
+    introCard(b))));
 }
 
 // ---------------------------------------------------------------- projects, news & services
@@ -1035,6 +1036,22 @@ function listingCardSection() {
     kind === "projects" ? textField(it, "excerpt", "Short description", { long: true, rows: 2, onChange: upd }) : null,
     photoField(it, "cover", "Card photo", upd),
   ];
+}
+
+
+// Opening screen settings (logo animation shown once when someone visits).
+function introCard(b) {
+  b.intro ||= { enabled: true, tagline: "Architecture That Elevates" };
+  const preview = h("div", { class: "intro-prev" }, h("img", { src: "/wp-content/uploads/2025/12/elevar_1-06l-1290x500.png", alt: "" }), h("i"), h("span", {}, b.intro.tagline));
+  const replay = () => { preview.classList.remove("play"); void preview.offsetWidth; preview.classList.add("play"); };
+  const tag = h("input", { class: "input", value: b.intro.tagline || "", placeholder: "Leave empty for logo only", oninput: (e) => { b.intro.tagline = e.target.value; preview.querySelector("span").textContent = e.target.value; changed(); } });
+  const on = h("input", { type: "checkbox", checked: b.intro.enabled !== false, onchange: (e) => { b.intro.enabled = e.target.checked; preview.style.opacity = e.target.checked ? 1 : .35; changed(); } });
+  if (b.intro.enabled === false) preview.style.opacity = .35;
+  setTimeout(replay, 300);
+  return h("div", { class: "card" }, h("h3", {}, "Opening screen"), h("p", {}, "Your logo animation, shown once when someone visits the website."),
+    preview,
+    h("div", { style: "display:flex;gap:10px;align-items:center;margin:14px 0 18px" }, h("label", { class: "switch" }, on, h("span")), h("b", { style: "font-size:13px" }, "Show the opening screen"), h("button", { class: "btn small ghost", style: "margin-left:auto", onclick: replay }, "▶ Replay")),
+    h("label", { class: "field" }, h("span", {}, "Tagline"), tag));
 }
 
 // ---------------------------------------------------------------- publish
